@@ -58,7 +58,7 @@ ConfigMain::ConfigMain(QWidget *parent)
             this, &ConfigMain::stateChanged);
     QList<FcitxQtKeySequenceWidget *> keywgts =
         general_tab->findChildren<FcitxQtKeySequenceWidget *>();
-    for (size_t i = 0; i < keywgts.size(); i++) {
+    for (int i = 0; i < keywgts.size(); i++) {
         connect(keywgts[i], &FcitxQtKeySequenceWidget::keySequenceChanged, this,
                 &ConfigMain::keytoggleChanged);
     }
@@ -122,7 +122,7 @@ void ConfigMain::addIM() {
             availIMView->currentIndex().data(Qt::DisplayRole).toString();
         int largest = 0;
         int find = -1;
-        for (size_t i = 0; i < model->schemas_.size(); i++) {
+        for (int i = 0; i < model->schemas_.size(); i++) {
             if (model->schemas_[i].name == uniqueName) {
                 find = i;
             }
@@ -146,7 +146,7 @@ void ConfigMain::removeIM() {
     if (currentIMView->currentIndex().isValid()) {
         const QString uniqueName =
             currentIMView->currentIndex().data(Qt::DisplayRole).toString();
-        for (size_t i = 0; i < model->schemas_.size(); i++) {
+        for (int i = 0; i < model->schemas_.size(); i++) {
             if (model->schemas_[i].name == uniqueName) {
                 model->schemas_[i].active = false;
                 model->schemas_[i].index = 0;
@@ -164,7 +164,7 @@ void ConfigMain::moveUpIM() {
         const QString uniqueName =
             currentIMView->currentIndex().data(Qt::DisplayRole).toString();
         int cur_index = -1;
-        for (size_t i = 0; i < model->schemas_.size(); i++) {
+        for (int i = 0; i < model->schemas_.size(); i++) {
             if (model->schemas_[i].name == uniqueName) {
                 cur_index = model->schemas_[i].index;
                 Q_ASSERT(cur_index ==
@@ -193,7 +193,7 @@ void ConfigMain::moveDownIM() {
         const QString uniqueName =
             currentIMView->currentIndex().data(Qt::DisplayRole).toString();
         int cur_index = -1;
-        for (size_t i = 0; i < model->schemas_.size(); i++) {
+        for (int i = 0; i < model->schemas_.size(); i++) {
             if (model->schemas_[i].name == uniqueName) {
                 cur_index = model->schemas_[i].index;
                 Q_ASSERT(cur_index ==
@@ -423,7 +423,7 @@ void ConfigMain::modelToUi() {
     static_cast<QStandardItemModel *>(currentIMView->model())->clear();
     static_cast<QStandardItemModel *>(availIMView->model())->clear();
     // Set available and enabled input methods
-    for (size_t i = 0; i < model->schemas_.size(); i++) {
+    for (int i = 0; i < model->schemas_.size(); i++) {
         auto &schema = model->schemas_[i];
         if (schema.active) {
             QStandardItem *active_schema = new QStandardItem(schema.name);
@@ -448,7 +448,7 @@ void ConfigMain::updateIMList() {
         static_cast<QStandardItemModel *>(currentIMView->model());
     avail_IMmodel->removeRows(0, avail_IMmodel->rowCount());
     active_IMmodel->removeRows(0, active_IMmodel->rowCount());
-    for (size_t i = 0; i < model->schemas_.size(); i++) {
+    for (int i = 0; i < model->schemas_.size(); i++) {
         auto &schema = model->schemas_[i];
         if (schema.active) {
             QStandardItem *active_schema = new QStandardItem(schema.name);
@@ -465,7 +465,7 @@ void ConfigMain::updateIMList() {
 void ConfigMain::modelToYaml() {
     config.setPageSize(model->candidate_per_word);
     std::vector<std::string> toggleKeys;
-    for (size_t i = 0; i < model->toggle_keys.size(); i++) {
+    for (int i = 0; i < model->toggle_keys.size(); i++) {
         toggleKeys.push_back(model->toggle_keys[i].toString());
     }
 
@@ -521,8 +521,12 @@ bool ConfigMain::yamlToModel() {
 
     // load switchkeys
     auto switch_keys = config.getSwitchKeys();
-    model->switch_keys =
-        QVector<SwitchKeyFunction>(switch_keys.begin(), switch_keys.end());
+    for(auto iter = switch_keys.begin(); iter!= switch_keys.end();iter++)
+    {
+        model->switch_keys.append(*iter);
+    }
+//    model->switch_keys =
+//        QVector<SwitchKeyFunction>(switch_keys.begin(), switch_keys.end());
 
     // load schemas
     getAvailableSchemas();
@@ -541,7 +545,11 @@ void ConfigMain::getAvailableSchemas() {
         QDir dir(path);
         QList<QString> entryList = dir.entryList(QStringList("*.schema.yaml"),
                                                  QDir::Files | QDir::Readable);
-        files.unite(QSet<QString>(entryList.begin(), entryList.end()));
+        for(auto iter = entryList.begin(); iter!= entryList.end();iter++)
+        {
+            files.insert(*iter);
+        }
+//        files.unite(QSet<QString>(entryList.begin(), entryList.end()));
     }
 
     auto filesList = files.values();
