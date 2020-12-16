@@ -8,7 +8,7 @@ Uploaders:
  Guo Yixuan (郭溢譞) <culu.gyx@gmail.com>,
 Build-Depends:
  cmake,
- debhelper-compat (= 13),
+ debhelper-compat (= 10),
  fcitx-bin,
  fcitx-libs-dev (>= 1:4.2.8.1),
  libfcitx-qt5-dev (>= 1.2.2),
