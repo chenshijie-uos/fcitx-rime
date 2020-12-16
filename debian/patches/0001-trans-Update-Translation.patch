@@ -1,0 +1,287 @@
+From: Fcitx Transifex Bot <fcitx-dev@googlegroups.com>
+Date: Thu, 14 Sep 2017 16:03:28 -0700
+Subject: [trans] Update Translation
+
+Applied-Upstream: commit:4eea4faaf970eb51eb128b7fe046cc166fa6eff9
+---
+ po/ko.po | 59 ++++++++++++++++++++++++++++++-----------------------------
+ po/ru.po | 62 ++++++++++++++++++++++++++++++++------------------------------
+ po/tr.po | 60 +++++++++++++++++++++++++++++++-----------------------------
+ 3 files changed, 93 insertions(+), 88 deletions(-)
+
+diff --git a/po/ko.po b/po/ko.po
+index f833152..5403178 100644
+--- a/po/ko.po
++++ b/po/ko.po
+@@ -1,56 +1,57 @@
+ # SOME DESCRIPTIVE TITLE.
+ # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+ # This file is distributed under the same license as the PACKAGE package.
+-# 
++#
+ # Translators:
+ # Bon Keun Seo <scobyseo@gmail.com>, 2017
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+-"POT-Creation-Date: 2013-11-29 06:01-0500\n"
+-"PO-Revision-Date: 2017-07-15 12:41+0000\n"
++"POT-Creation-Date: 2017-09-14 16:03-0700\n"
++"PO-Revision-Date: 2017-08-03 16:58+0000\n"
+ "Last-Translator: Bon Keun Seo <scobyseo@gmail.com>\n"
+ "Language-Team: Korean (http://www.transifex.com/fcitx/fcitx/language/ko/)\n"
++"Language: ko\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
+-"Language: ko\n"
+ "Plural-Forms: nplurals=1; plural=0;\n"
+ 
+-#: src/fcitx-rime.c:59
+-msgid "Rime is under maintenance ..."
+-msgstr "Rime은 관리 중입니다..."
+-
+-#: src/fcitx-rime.c:61
+-msgid "Rime is ready."
+-msgstr "Rime이 준비되었습니다."
++#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
++msgid "Deploy"
++msgstr "배치"
+ 
+-#: src/fcitx-rime.c:63
+-msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
+-msgstr "Rime에 오류가 발생했습니다. 자세한 내용은 /tmp/rime.fcitx.ERROR을 참조하세요."
++#: src/fcitx-rime.c:527
++msgid "English"
++msgstr "영어"
+ 
+-#: src/fcitx-rime.c:69 src/fcitx-rime.c:127 src/fcitx-rime.conf.in:3
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
+ #: src/rime.conf.in:3
+ msgid "Rime"
+ msgstr "Rime"
+ 
+-#: src/fcitx-rime.c:147 src/fcitx-rime.c:148
+-msgid "Deploy"
+-msgstr "배치"
++#: src/fcitx-rime.conf.in:4
++msgid "Rime Wrapper For Fcitx"
++msgstr "Fcitx Rime 입력기"
+ 
+-#: src/fcitx-rime.c:156 src/fcitx-rime.c:157
+-msgid "Synchronize"
+-msgstr "동기화"
++#: src/fcitx-rime.c:64
++msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
++msgstr ""
++"Rime에 오류가 발생했습니다. 자세한 내용은 /tmp/rime.fcitx.ERROR을 참조하세요."
++
++#: src/fcitx-rime.c:62
++msgid "Rime is ready."
++msgstr "Rime이 준비되었습니다."
++
++#: src/fcitx-rime.c:60
++msgid "Rime is under maintenance ..."
++msgstr "Rime은 관리 중입니다..."
+ 
+-#: src/fcitx-rime.c:171
++#: src/fcitx-rime.c:172
+ msgid "Schema List"
+ msgstr "스키마 목록"
+ 
+-#: src/fcitx-rime.c:517
+-msgid "English"
+-msgstr "영어"
+-
+-#: src/fcitx-rime.conf.in:4
+-msgid "Rime Wrapper For Fcitx"
+-msgstr "Fcitx Rime 입력기"
++#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++msgid "Synchronize"
++msgstr "동기화"
+diff --git a/po/ru.po b/po/ru.po
+index 7c1a000..4c71a05 100644
+--- a/po/ru.po
++++ b/po/ru.po
+@@ -1,56 +1,58 @@
+ # SOME DESCRIPTIVE TITLE.
+ # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+ # This file is distributed under the same license as the PACKAGE package.
+-# 
++#
+ # Translators:
+ # TotalCaesar659 <x24cm5b8c54q6szxw@yandex.ru>, 2016
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+-"POT-Creation-Date: 2013-11-29 06:01-0500\n"
+-"PO-Revision-Date: 2016-11-30 22:06+0000\n"
++"POT-Creation-Date: 2017-09-14 16:03-0700\n"
++"PO-Revision-Date: 2017-08-03 16:58+0000\n"
+ "Last-Translator: TotalCaesar659 <x24cm5b8c54q6szxw@yandex.ru>\n"
+ "Language-Team: Russian (http://www.transifex.com/fcitx/fcitx/language/ru/)\n"
++"Language: ru\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
+-"Language: ru\n"
+-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+-
+-#: src/fcitx-rime.c:59
+-msgid "Rime is under maintenance ..."
+-msgstr "Rime перегружен..."
++"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
++"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
++"%100>=11 && n%100<=14)? 2 : 3);\n"
+ 
+-#: src/fcitx-rime.c:61
+-msgid "Rime is ready."
+-msgstr "Rime готов."
++#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
++msgid "Deploy"
++msgstr "Развернуть"
+ 
+-#: src/fcitx-rime.c:63
+-msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
+-msgstr "Обнаружена ошибка Rime. Подробности в файле /tmp/rime.fcitx.ERROR."
++#: src/fcitx-rime.c:527
++msgid "English"
++msgstr "Английский"
+ 
+-#: src/fcitx-rime.c:69 src/fcitx-rime.c:127 src/fcitx-rime.conf.in:3
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
+ #: src/rime.conf.in:3
+ msgid "Rime"
+ msgstr "Rime"
+ 
+-#: src/fcitx-rime.c:147 src/fcitx-rime.c:148
+-msgid "Deploy"
+-msgstr "Развернуть"
++#: src/fcitx-rime.conf.in:4
++msgid "Rime Wrapper For Fcitx"
++msgstr "Обертка Rime для Fcitx"
+ 
+-#: src/fcitx-rime.c:156 src/fcitx-rime.c:157
+-msgid "Synchronize"
+-msgstr "Синхронизировать"
++#: src/fcitx-rime.c:64
++msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
++msgstr "Обнаружена ошибка Rime. Подробности в файле /tmp/rime.fcitx.ERROR."
++
++#: src/fcitx-rime.c:62
++msgid "Rime is ready."
++msgstr "Rime готов."
++
++#: src/fcitx-rime.c:60
++msgid "Rime is under maintenance ..."
++msgstr "Rime перегружен..."
+ 
+-#: src/fcitx-rime.c:171
++#: src/fcitx-rime.c:172
+ msgid "Schema List"
+ msgstr "Список схем"
+ 
+-#: src/fcitx-rime.c:517
+-msgid "English"
+-msgstr "Английский"
+-
+-#: src/fcitx-rime.conf.in:4
+-msgid "Rime Wrapper For Fcitx"
+-msgstr "Обертка Rime для Fcitx"
++#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++msgid "Synchronize"
++msgstr "Синхронизировать"
+diff --git a/po/tr.po b/po/tr.po
+index dc980d9..4cbccda 100644
+--- a/po/tr.po
++++ b/po/tr.po
+@@ -1,56 +1,58 @@
+ # SOME DESCRIPTIVE TITLE.
+ # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+ # This file is distributed under the same license as the PACKAGE package.
+-# 
++#
+ # Translators:
+ # Gökhan Kalayci <gkmediagokhan@gmail.com>, 2017
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+-"POT-Creation-Date: 2013-11-29 06:01-0500\n"
+-"PO-Revision-Date: 2017-04-20 20:35+0000\n"
++"POT-Creation-Date: 2017-09-14 16:03-0700\n"
++"PO-Revision-Date: 2017-08-03 16:58+0000\n"
+ "Last-Translator: Gökhan Kalayci <gkmediagokhan@gmail.com>\n"
+ "Language-Team: Turkish (http://www.transifex.com/fcitx/fcitx/language/tr/)\n"
++"Language: tr\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
+-"Language: tr\n"
+ "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+ 
+-#: src/fcitx-rime.c:59
+-msgid "Rime is under maintenance ..."
+-msgstr "Rime bakımda..."
+-
+-#: src/fcitx-rime.c:61
+-msgid "Rime is ready."
+-msgstr "Rime hazır."
++#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
++msgid "Deploy"
++msgstr "Dağıt"
+ 
+-#: src/fcitx-rime.c:63
+-msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
+-msgstr "Rime bir hatayla karşılaştı. Detaylar için  /tmp/rime.fcitx.ERROR  yoluna bakın."
++#: src/fcitx-rime.c:527
++msgid "English"
++msgstr "İngilizce"
+ 
+-#: src/fcitx-rime.c:69 src/fcitx-rime.c:127 src/fcitx-rime.conf.in:3
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
+ #: src/rime.conf.in:3
+ msgid "Rime"
+ msgstr "Rime"
+ 
+-#: src/fcitx-rime.c:147 src/fcitx-rime.c:148
+-msgid "Deploy"
+-msgstr "Dağıt"
++#: src/fcitx-rime.conf.in:4
++msgid "Rime Wrapper For Fcitx"
++msgstr "Fcitx için Rime Wrapper"
+ 
+-#: src/fcitx-rime.c:156 src/fcitx-rime.c:157
+-msgid "Synchronize"
+-msgstr "Eşitleme"
++#: src/fcitx-rime.c:64
++msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
++msgstr ""
++"Rime bir hatayla karşılaştı. Detaylar için  /tmp/rime.fcitx.ERROR  yoluna "
++"bakın."
++
++#: src/fcitx-rime.c:62
++msgid "Rime is ready."
++msgstr "Rime hazır."
++
++#: src/fcitx-rime.c:60
++msgid "Rime is under maintenance ..."
++msgstr "Rime bakımda..."
+ 
+-#: src/fcitx-rime.c:171
++#: src/fcitx-rime.c:172
+ msgid "Schema List"
+ msgstr "Şema Listesi"
+ 
+-#: src/fcitx-rime.c:517
+-msgid "English"
+-msgstr "İngilizce"
+-
+-#: src/fcitx-rime.conf.in:4
+-msgid "Rime Wrapper For Fcitx"
+-msgstr "Fcitx için Rime Wrapper"
++#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++msgid "Synchronize"
++msgstr "Eşitleme"

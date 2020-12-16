@@ -1,0 +1,1752 @@
+From: Fcitx Transifex Bot <fcitx-dev@googlegroups.com>
+Date: Sun, 10 Nov 2019 00:02:14 -0800
+Subject: [trans] Update Translation
+
+---
+ po/de.po    | 156 +++++++++++++++++++++++++++++------------------------------
+ po/ja.po    | 144 +++++++++++++++++++++++++++----------------------------
+ po/ko.po    | 143 +++++++++++++++++++++++++++---------------------------
+ po/ru.po    | 148 ++++++++++++++++++++++++++++----------------------------
+ po/tr.po    | 144 +++++++++++++++++++++++++++----------------------------
+ po/vi.po    | 141 +++++++++++++++++++++++++++--------------------------
+ po/zh_CN.po | 157 ++++++++++++++++++++++++++++++------------------------------
+ po/zh_TW.po | 149 ++++++++++++++++++++++++++++----------------------------
+ 8 files changed, 585 insertions(+), 597 deletions(-)
+
+diff --git a/po/de.po b/po/de.po
+index 230d9c4..d8b2bb6 100644
+--- a/po/de.po
++++ b/po/de.po
+@@ -1,7 +1,7 @@
+ # SOME DESCRIPTIVE TITLE.
+ # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+ # This file is distributed under the same license as the PACKAGE package.
+-#
++# 
+ # Translators:
+ # mar well <m.wellendorf@gmx.de>, 2013
+ # mar well <m.wellendorf@gmx.de>, 2014,2017-2018
+@@ -9,132 +9,130 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+-"POT-Creation-Date: 2019-11-03 12:28-0800\n"
++"POT-Creation-Date: 2018-05-30 00:03-0700\n"
+ "PO-Revision-Date: 2018-06-19 19:02+0000\n"
+ "Last-Translator: mar well <m.wellendorf@gmx.de>\n"
+ "Language-Team: German (http://www.transifex.com/fcitx/fcitx/language/de/)\n"
+-"Language: de\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
++"Language: de\n"
+ "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:348
+-#. i18n: ectx: property (text), widget (QLabel, label_4)
+-msgid "<b>Select Input Schema:</b>"
+-msgstr "<b>Auswahl Eingabeschema:</b>"
++#: gui/src/ConfigMain.cpp:246
++msgid "Fcitx Rime Config GUI Tool"
++msgstr "Graphisches Benutzerinterface für Fcitx Rime"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:283
+-#. i18n: ectx: property (text), widget (QLabel, label_2)
+-msgid "Active Input Schemas:"
+-msgstr "Aktive Eingabeschemata:"
++#: src/fcitx-rime.c:60
++msgid "Rime is under maintenance ..."
++msgstr "Rime wird im Moment gewartet."
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:221
+-#. i18n: ectx: property (text), widget (QLabel, label)
+-msgid "Available Input Schemas:"
+-msgstr "Vorhandene Eingabeschemata:"
++#: src/fcitx-rime.c:62
++msgid "Rime is ready."
++msgstr "Rime ist bereit."
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:33
+-#. i18n: ectx: property (text), widget (QLabel, toggle_label)
+-msgid "Call-out Menu"
+-msgstr ""
++#: src/fcitx-rime.c:64
++msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
++msgstr "Rime ist auf einen Fehler gestoßen. Bitte sehen Sie für mehr Infos in /tmp/rime.fcitx.ERROR nach."
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:179
+-#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
+-msgid "Candidate Word Number"
+-msgstr "Anzahl Zeichenvorschläge"
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
++#: src/rime.conf.in:3
++msgid "Rime"
++msgstr "Rime"
+ 
+-#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
++#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
+ msgid "Deploy"
+ msgstr "Deploy"
+ 
+-#: src/fcitx-rime.c:528
++#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++msgid "Synchronize"
++msgstr "Synchronisieren"
++
++#: src/fcitx-rime.c:172
++msgid "Schema List"
++msgstr "Liste Schemata"
++
++#: src/fcitx-rime.c:527
+ msgid "English"
+ msgstr "Englisch"
+ 
++#: src/fcitx-rime.conf.in:4
++msgid "Rime Wrapper For Fcitx"
++msgstr "Rime Wrapper für Fcitx"
++
+ #: src/fcitx-rime.conf.in:11
+ msgid "Fcitx Rime Config"
+ msgstr "Fcitx Rime Konfiguration"
+ 
+-#: gui/src/ConfigMain.cpp:244
+-msgid "Fcitx Rime Config GUI Tool"
+-msgstr "Graphisches Benutzerinterface für Fcitx Rime"
+-
+-#. i18n: file: gui/src/ConfigMain.ui:114
+-#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
+-msgid "Half/Full Shape"
+-msgstr "Half/Full Shape"
+-
+ #. i18n: file: gui/src/ConfigMain.ui:14
+ #. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
+ msgid "MainWindow"
+ msgstr "MainWindow"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:86
+-#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
+-msgid "Page Down"
+-msgstr "Seite nach unten"
++#. i18n: file: gui/src/ConfigMain.ui:26
++#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
++msgid "Shortcut"
++msgstr ""
++
++#. i18n: file: gui/src/ConfigMain.ui:33
++#. i18n: ectx: property (text), widget (QLabel, toggle_label)
++msgid "Call-out Menu"
++msgstr ""
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:58
+ #. i18n: ectx: property (text), widget (QLabel, label_pageup)
+ msgid "Page Up"
+ msgstr "Seite nach oben"
+ 
+-#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
+-#: src/rime.conf.in:3
+-msgid "Rime"
+-msgstr "Rime"
++#. i18n: file: gui/src/ConfigMain.ui:86
++#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
++msgid "Page Down"
++msgstr "Seite nach unten"
+ 
+-#: src/fcitx-rime.conf.in:4
+-msgid "Rime Wrapper For Fcitx"
+-msgstr "Rime Wrapper für Fcitx"
++#. i18n: file: gui/src/ConfigMain.ui:114
++#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
++msgid "Half/Full Shape"
++msgstr "Half/Full Shape"
+ 
+-#: src/fcitx-rime.c:64
+-msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
+-msgstr ""
+-"Rime ist auf einen Fehler gestoßen. Bitte sehen Sie für mehr Infos in /tmp/"
+-"rime.fcitx.ERROR nach."
++#. i18n: file: gui/src/ConfigMain.ui:139
++#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
++msgid "Western/Eastern"
++msgstr "Westlich/Östlich"
+ 
+-#: src/fcitx-rime.c:62
+-msgid "Rime is ready."
+-msgstr "Rime ist bereit."
++#. i18n: file: gui/src/ConfigMain.ui:159
++#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
++msgid "Traditional/Simplified"
++msgstr "Traditionell/Simplifiziert"
+ 
+-#: src/fcitx-rime.c:60
+-msgid "Rime is under maintenance ..."
+-msgstr "Rime wird im Moment gewartet."
++#. i18n: file: gui/src/ConfigMain.ui:179
++#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
++msgid "Candidate Word Number"
++msgstr "Anzahl Zeichenvorschläge"
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:195
+ #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+ msgid "Schema"
+ msgstr "Schema"
+ 
+-#: src/fcitx-rime.c:173
+-msgid "Schema List"
+-msgstr "Liste Schemata"
+-
+-#. i18n: file: gui/src/ConfigMain.ui:26
+-#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
+-msgid "Shortcut"
+-msgstr ""
++#. i18n: file: gui/src/ConfigMain.ui:221
++#. i18n: ectx: property (text), widget (QLabel, label)
++msgid "Available Input Schemas:"
++msgstr "Vorhandene Eingabeschemata:"
+ 
+-#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
+-msgid "Synchronize"
+-msgstr "Synchronisieren"
++#. i18n: file: gui/src/ConfigMain.ui:283
++#. i18n: ectx: property (text), widget (QLabel, label_2)
++msgid "Active Input Schemas:"
++msgstr "Aktive Eingabeschemata:"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:159
+-#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
+-msgid "Traditional/Simplified"
+-msgstr "Traditionell/Simplifiziert"
++#. i18n: file: gui/src/ConfigMain.ui:348
++#. i18n: ectx: property (text), widget (QLabel, label_4)
++msgid "<b>Select Input Schema:</b>"
++msgstr "<b>Auswahl Eingabeschema:</b>"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:139
+-#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
+-msgid "Western/Eastern"
+-msgstr "Westlich/Östlich"
++msgctxt "NAME OF TRANSLATORS"
++msgid "Your names"
++msgstr "Marcus Wellendorf"
+ 
+ msgctxt "EMAIL OF TRANSLATORS"
+ msgid "Your emails"
+ msgstr "marwell.1980@freenet.de"
+-
+-msgctxt "NAME OF TRANSLATORS"
+-msgid "Your names"
+-msgstr "Marcus Wellendorf"
+diff --git a/po/ja.po b/po/ja.po
+index 0df3862..5768ff7 100644
+--- a/po/ja.po
++++ b/po/ja.po
+@@ -1,7 +1,7 @@
+ # SOME DESCRIPTIVE TITLE.
+ # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+ # This file is distributed under the same license as the PACKAGE package.
+-#
++# 
+ # Translators:
+ # shirou - しろう <shirou.faw@gmail.com>, 2013
+ # ABE Tsunehiko, 2017
+@@ -10,70 +10,74 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+-"POT-Creation-Date: 2018-05-31 00:03-0700\n"
++"POT-Creation-Date: 2018-05-30 00:03-0700\n"
+ "PO-Revision-Date: 2018-05-30 07:04+0000\n"
+ "Last-Translator: csslayer <wengxt@gmail.com>\n"
+ "Language-Team: Japanese (http://www.transifex.com/fcitx/fcitx/language/ja/)\n"
+-"Language: ja\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
++"Language: ja\n"
+ "Plural-Forms: nplurals=1; plural=0;\n"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:348
+-#. i18n: ectx: property (text), widget (QLabel, label_4)
+-msgid "<b>Select Input Schema:</b>"
++#: gui/src/ConfigMain.cpp:246
++msgid "Fcitx Rime Config GUI Tool"
+ msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:283
+-#. i18n: ectx: property (text), widget (QLabel, label_2)
+-msgid "Active Input Schemas:"
+-msgstr ""
++#: src/fcitx-rime.c:60
++msgid "Rime is under maintenance ..."
++msgstr "Rimeはメンテナンス中です..."
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:221
+-#. i18n: ectx: property (text), widget (QLabel, label)
+-msgid "Available Input Schemas:"
+-msgstr ""
++#: src/fcitx-rime.c:62
++msgid "Rime is ready."
++msgstr "Rimeの準備ができました。"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:33
+-#. i18n: ectx: property (text), widget (QLabel, toggle_label)
+-msgid "Call-out Menu"
+-msgstr ""
++#: src/fcitx-rime.c:64
++msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
++msgstr "Rimeでエラーが起こりました。より詳しくは /tmp/rime.fcitx.ERROR を見てください。"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:179
+-#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
+-msgid "Candidate Word Number"
+-msgstr ""
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
++#: src/rime.conf.in:3
++msgid "Rime"
++msgstr "Rime"
+ 
+-#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
++#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
+ msgid "Deploy"
+ msgstr "デプロイ"
+ 
+-#: src/fcitx-rime.c:528
++#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++msgid "Synchronize"
++msgstr "同期"
++
++#: src/fcitx-rime.c:172
++msgid "Schema List"
++msgstr "スキーマリスト"
++
++#: src/fcitx-rime.c:527
+ msgid "English"
+ msgstr ""
+ 
++#: src/fcitx-rime.conf.in:4
++msgid "Rime Wrapper For Fcitx"
++msgstr "Fcitx 用 Rime ラッパー"
++
+ #: src/fcitx-rime.conf.in:11
+ msgid "Fcitx Rime Config"
+ msgstr ""
+ 
+-#: gui/src/ConfigMain.cpp:244
+-msgid "Fcitx Rime Config GUI Tool"
+-msgstr ""
+-
+-#. i18n: file: gui/src/ConfigMain.ui:114
+-#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
+-msgid "Half/Full Shape"
+-msgstr ""
+-
+ #. i18n: file: gui/src/ConfigMain.ui:14
+ #. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
+ msgid "MainWindow"
+ msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:86
+-#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
+-msgid "Page Down"
++#. i18n: file: gui/src/ConfigMain.ui:26
++#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
++msgid "Shortcut"
++msgstr ""
++
++#. i18n: file: gui/src/ConfigMain.ui:33
++#. i18n: ectx: property (text), widget (QLabel, toggle_label)
++msgid "Call-out Menu"
+ msgstr ""
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:58
+@@ -81,61 +85,55 @@ msgstr ""
+ msgid "Page Up"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
+-#: src/rime.conf.in:3
+-msgid "Rime"
+-msgstr "Rime"
++#. i18n: file: gui/src/ConfigMain.ui:86
++#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
++msgid "Page Down"
++msgstr ""
+ 
+-#: src/fcitx-rime.conf.in:4
+-msgid "Rime Wrapper For Fcitx"
+-msgstr "Fcitx 用 Rime ラッパー"
++#. i18n: file: gui/src/ConfigMain.ui:114
++#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
++msgid "Half/Full Shape"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:64
+-msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
++#. i18n: file: gui/src/ConfigMain.ui:139
++#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
++msgid "Western/Eastern"
+ msgstr ""
+-"Rimeでエラーが起こりました。より詳しくは /tmp/rime.fcitx.ERROR を見てくださ"
+-"い。"
+ 
+-#: src/fcitx-rime.c:62
+-msgid "Rime is ready."
+-msgstr "Rimeの準備ができました。"
++#. i18n: file: gui/src/ConfigMain.ui:159
++#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
++msgid "Traditional/Simplified"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:60
+-msgid "Rime is under maintenance ..."
+-msgstr "Rimeはメンテナンス中です..."
++#. i18n: file: gui/src/ConfigMain.ui:179
++#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
++msgid "Candidate Word Number"
++msgstr ""
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:195
+ #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+ msgid "Schema"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:173
+-msgid "Schema List"
+-msgstr "スキーマリスト"
+-
+-#. i18n: file: gui/src/ConfigMain.ui:26
+-#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
+-msgid "Shortcut"
++#. i18n: file: gui/src/ConfigMain.ui:221
++#. i18n: ectx: property (text), widget (QLabel, label)
++msgid "Available Input Schemas:"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
+-msgid "Synchronize"
+-msgstr "同期"
++#. i18n: file: gui/src/ConfigMain.ui:283
++#. i18n: ectx: property (text), widget (QLabel, label_2)
++msgid "Active Input Schemas:"
++msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:159
+-#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
+-msgid "Traditional/Simplified"
++#. i18n: file: gui/src/ConfigMain.ui:348
++#. i18n: ectx: property (text), widget (QLabel, label_4)
++msgid "<b>Select Input Schema:</b>"
+ msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:139
+-#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
+-msgid "Western/Eastern"
++msgctxt "NAME OF TRANSLATORS"
++msgid "Your names"
+ msgstr ""
+ 
+ msgctxt "EMAIL OF TRANSLATORS"
+ msgid "Your emails"
+ msgstr ""
+-
+-msgctxt "NAME OF TRANSLATORS"
+-msgid "Your names"
+-msgstr ""
+diff --git a/po/ko.po b/po/ko.po
+index b2b3413..79a68dc 100644
+--- a/po/ko.po
++++ b/po/ko.po
+@@ -1,77 +1,81 @@
+ # SOME DESCRIPTIVE TITLE.
+ # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+ # This file is distributed under the same license as the PACKAGE package.
+-#
++# 
+ # Translators:
+ # Bon Keun Seo <scobyseo@gmail.com>, 2017
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+-"POT-Creation-Date: 2018-05-31 00:03-0700\n"
++"POT-Creation-Date: 2018-05-30 00:03-0700\n"
+ "PO-Revision-Date: 2018-05-30 07:04+0000\n"
+ "Last-Translator: csslayer <wengxt@gmail.com>\n"
+ "Language-Team: Korean (http://www.transifex.com/fcitx/fcitx/language/ko/)\n"
+-"Language: ko\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
++"Language: ko\n"
+ "Plural-Forms: nplurals=1; plural=0;\n"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:348
+-#. i18n: ectx: property (text), widget (QLabel, label_4)
+-msgid "<b>Select Input Schema:</b>"
++#: gui/src/ConfigMain.cpp:246
++msgid "Fcitx Rime Config GUI Tool"
+ msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:283
+-#. i18n: ectx: property (text), widget (QLabel, label_2)
+-msgid "Active Input Schemas:"
+-msgstr ""
++#: src/fcitx-rime.c:60
++msgid "Rime is under maintenance ..."
++msgstr "Rime은 관리 중입니다..."
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:221
+-#. i18n: ectx: property (text), widget (QLabel, label)
+-msgid "Available Input Schemas:"
+-msgstr ""
++#: src/fcitx-rime.c:62
++msgid "Rime is ready."
++msgstr "Rime이 준비되었습니다."
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:33
+-#. i18n: ectx: property (text), widget (QLabel, toggle_label)
+-msgid "Call-out Menu"
+-msgstr ""
++#: src/fcitx-rime.c:64
++msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
++msgstr "Rime에 오류가 발생했습니다. 자세한 내용은 /tmp/rime.fcitx.ERROR을 참조하세요."
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:179
+-#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
+-msgid "Candidate Word Number"
+-msgstr ""
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
++#: src/rime.conf.in:3
++msgid "Rime"
++msgstr "Rime"
+ 
+-#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
++#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
+ msgid "Deploy"
+ msgstr "배치"
+ 
+-#: src/fcitx-rime.c:528
++#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++msgid "Synchronize"
++msgstr "동기화"
++
++#: src/fcitx-rime.c:172
++msgid "Schema List"
++msgstr "스키마 목록"
++
++#: src/fcitx-rime.c:527
+ msgid "English"
+ msgstr "영어"
+ 
++#: src/fcitx-rime.conf.in:4
++msgid "Rime Wrapper For Fcitx"
++msgstr "Fcitx Rime 입력기"
++
+ #: src/fcitx-rime.conf.in:11
+ msgid "Fcitx Rime Config"
+ msgstr ""
+ 
+-#: gui/src/ConfigMain.cpp:244
+-msgid "Fcitx Rime Config GUI Tool"
+-msgstr ""
+-
+-#. i18n: file: gui/src/ConfigMain.ui:114
+-#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
+-msgid "Half/Full Shape"
+-msgstr ""
+-
+ #. i18n: file: gui/src/ConfigMain.ui:14
+ #. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
+ msgid "MainWindow"
+ msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:86
+-#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
+-msgid "Page Down"
++#. i18n: file: gui/src/ConfigMain.ui:26
++#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
++msgid "Shortcut"
++msgstr ""
++
++#. i18n: file: gui/src/ConfigMain.ui:33
++#. i18n: ectx: property (text), widget (QLabel, toggle_label)
++msgid "Call-out Menu"
+ msgstr ""
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:58
+@@ -79,60 +83,55 @@ msgstr ""
+ msgid "Page Up"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
+-#: src/rime.conf.in:3
+-msgid "Rime"
+-msgstr "Rime"
++#. i18n: file: gui/src/ConfigMain.ui:86
++#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
++msgid "Page Down"
++msgstr ""
+ 
+-#: src/fcitx-rime.conf.in:4
+-msgid "Rime Wrapper For Fcitx"
+-msgstr "Fcitx Rime 입력기"
++#. i18n: file: gui/src/ConfigMain.ui:114
++#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
++msgid "Half/Full Shape"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:64
+-msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
++#. i18n: file: gui/src/ConfigMain.ui:139
++#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
++msgid "Western/Eastern"
+ msgstr ""
+-"Rime에 오류가 발생했습니다. 자세한 내용은 /tmp/rime.fcitx.ERROR을 참조하세요."
+ 
+-#: src/fcitx-rime.c:62
+-msgid "Rime is ready."
+-msgstr "Rime이 준비되었습니다."
++#. i18n: file: gui/src/ConfigMain.ui:159
++#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
++msgid "Traditional/Simplified"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:60
+-msgid "Rime is under maintenance ..."
+-msgstr "Rime은 관리 중입니다..."
++#. i18n: file: gui/src/ConfigMain.ui:179
++#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
++msgid "Candidate Word Number"
++msgstr ""
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:195
+ #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+ msgid "Schema"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:173
+-msgid "Schema List"
+-msgstr "스키마 목록"
+-
+-#. i18n: file: gui/src/ConfigMain.ui:26
+-#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
+-msgid "Shortcut"
++#. i18n: file: gui/src/ConfigMain.ui:221
++#. i18n: ectx: property (text), widget (QLabel, label)
++msgid "Available Input Schemas:"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
+-msgid "Synchronize"
+-msgstr "동기화"
++#. i18n: file: gui/src/ConfigMain.ui:283
++#. i18n: ectx: property (text), widget (QLabel, label_2)
++msgid "Active Input Schemas:"
++msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:159
+-#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
+-msgid "Traditional/Simplified"
++#. i18n: file: gui/src/ConfigMain.ui:348
++#. i18n: ectx: property (text), widget (QLabel, label_4)
++msgid "<b>Select Input Schema:</b>"
+ msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:139
+-#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
+-msgid "Western/Eastern"
++msgctxt "NAME OF TRANSLATORS"
++msgid "Your names"
+ msgstr ""
+ 
+ msgctxt "EMAIL OF TRANSLATORS"
+ msgid "Your emails"
+ msgstr ""
+-
+-msgctxt "NAME OF TRANSLATORS"
+-msgid "Your names"
+-msgstr ""
+diff --git a/po/ru.po b/po/ru.po
+index 2894ffe..a7fb6c8 100644
+--- a/po/ru.po
++++ b/po/ru.po
+@@ -1,79 +1,81 @@
+ # SOME DESCRIPTIVE TITLE.
+ # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+ # This file is distributed under the same license as the PACKAGE package.
+-#
++# 
+ # Translators:
+ # TotalCaesar659 <x24cm5b8c54q6szxw@yandex.ru>, 2016
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+-"POT-Creation-Date: 2018-05-31 00:03-0700\n"
++"POT-Creation-Date: 2018-05-30 00:03-0700\n"
+ "PO-Revision-Date: 2018-05-30 07:04+0000\n"
+ "Last-Translator: csslayer <wengxt@gmail.com>\n"
+ "Language-Team: Russian (http://www.transifex.com/fcitx/fcitx/language/ru/)\n"
+-"Language: ru\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
+-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+-"%100>=11 && n%100<=14)? 2 : 3);\n"
++"Language: ru\n"
++"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:348
+-#. i18n: ectx: property (text), widget (QLabel, label_4)
+-msgid "<b>Select Input Schema:</b>"
++#: gui/src/ConfigMain.cpp:246
++msgid "Fcitx Rime Config GUI Tool"
+ msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:283
+-#. i18n: ectx: property (text), widget (QLabel, label_2)
+-msgid "Active Input Schemas:"
+-msgstr ""
++#: src/fcitx-rime.c:60
++msgid "Rime is under maintenance ..."
++msgstr "Rime перегружен..."
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:221
+-#. i18n: ectx: property (text), widget (QLabel, label)
+-msgid "Available Input Schemas:"
+-msgstr ""
++#: src/fcitx-rime.c:62
++msgid "Rime is ready."
++msgstr "Rime готов."
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:33
+-#. i18n: ectx: property (text), widget (QLabel, toggle_label)
+-msgid "Call-out Menu"
+-msgstr ""
++#: src/fcitx-rime.c:64
++msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
++msgstr "Обнаружена ошибка Rime. Подробности в файле /tmp/rime.fcitx.ERROR."
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:179
+-#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
+-msgid "Candidate Word Number"
+-msgstr ""
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
++#: src/rime.conf.in:3
++msgid "Rime"
++msgstr "Rime"
+ 
+-#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
++#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
+ msgid "Deploy"
+ msgstr "Развернуть"
+ 
+-#: src/fcitx-rime.c:528
++#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++msgid "Synchronize"
++msgstr "Синхронизировать"
++
++#: src/fcitx-rime.c:172
++msgid "Schema List"
++msgstr "Список схем"
++
++#: src/fcitx-rime.c:527
+ msgid "English"
+ msgstr "Английский"
+ 
++#: src/fcitx-rime.conf.in:4
++msgid "Rime Wrapper For Fcitx"
++msgstr "Обертка Rime для Fcitx"
++
+ #: src/fcitx-rime.conf.in:11
+ msgid "Fcitx Rime Config"
+ msgstr ""
+ 
+-#: gui/src/ConfigMain.cpp:244
+-msgid "Fcitx Rime Config GUI Tool"
+-msgstr ""
+-
+-#. i18n: file: gui/src/ConfigMain.ui:114
+-#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
+-msgid "Half/Full Shape"
+-msgstr ""
+-
+ #. i18n: file: gui/src/ConfigMain.ui:14
+ #. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
+ msgid "MainWindow"
+ msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:86
+-#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
+-msgid "Page Down"
++#. i18n: file: gui/src/ConfigMain.ui:26
++#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
++msgid "Shortcut"
++msgstr ""
++
++#. i18n: file: gui/src/ConfigMain.ui:33
++#. i18n: ectx: property (text), widget (QLabel, toggle_label)
++msgid "Call-out Menu"
+ msgstr ""
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:58
+@@ -81,59 +83,55 @@ msgstr ""
+ msgid "Page Up"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
+-#: src/rime.conf.in:3
+-msgid "Rime"
+-msgstr "Rime"
++#. i18n: file: gui/src/ConfigMain.ui:86
++#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
++msgid "Page Down"
++msgstr ""
+ 
+-#: src/fcitx-rime.conf.in:4
+-msgid "Rime Wrapper For Fcitx"
+-msgstr "Обертка Rime для Fcitx"
++#. i18n: file: gui/src/ConfigMain.ui:114
++#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
++msgid "Half/Full Shape"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:64
+-msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
+-msgstr "Обнаружена ошибка Rime. Подробности в файле /tmp/rime.fcitx.ERROR."
++#. i18n: file: gui/src/ConfigMain.ui:139
++#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
++msgid "Western/Eastern"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:62
+-msgid "Rime is ready."
+-msgstr "Rime готов."
++#. i18n: file: gui/src/ConfigMain.ui:159
++#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
++msgid "Traditional/Simplified"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:60
+-msgid "Rime is under maintenance ..."
+-msgstr "Rime перегружен..."
++#. i18n: file: gui/src/ConfigMain.ui:179
++#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
++msgid "Candidate Word Number"
++msgstr ""
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:195
+ #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+ msgid "Schema"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:173
+-msgid "Schema List"
+-msgstr "Список схем"
+-
+-#. i18n: file: gui/src/ConfigMain.ui:26
+-#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
+-msgid "Shortcut"
++#. i18n: file: gui/src/ConfigMain.ui:221
++#. i18n: ectx: property (text), widget (QLabel, label)
++msgid "Available Input Schemas:"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
+-msgid "Synchronize"
+-msgstr "Синхронизировать"
++#. i18n: file: gui/src/ConfigMain.ui:283
++#. i18n: ectx: property (text), widget (QLabel, label_2)
++msgid "Active Input Schemas:"
++msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:159
+-#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
+-msgid "Traditional/Simplified"
++#. i18n: file: gui/src/ConfigMain.ui:348
++#. i18n: ectx: property (text), widget (QLabel, label_4)
++msgid "<b>Select Input Schema:</b>"
+ msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:139
+-#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
+-msgid "Western/Eastern"
++msgctxt "NAME OF TRANSLATORS"
++msgid "Your names"
+ msgstr ""
+ 
+ msgctxt "EMAIL OF TRANSLATORS"
+ msgid "Your emails"
+ msgstr ""
+-
+-msgctxt "NAME OF TRANSLATORS"
+-msgid "Your names"
+-msgstr ""
+diff --git a/po/tr.po b/po/tr.po
+index ce99928..251a8cc 100644
+--- a/po/tr.po
++++ b/po/tr.po
+@@ -1,77 +1,81 @@
+ # SOME DESCRIPTIVE TITLE.
+ # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+ # This file is distributed under the same license as the PACKAGE package.
+-#
++# 
+ # Translators:
+ # Gökhan Kalayci <gkmediagokhan@gmail.com>, 2017
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+-"POT-Creation-Date: 2018-05-31 00:03-0700\n"
++"POT-Creation-Date: 2018-05-30 00:03-0700\n"
+ "PO-Revision-Date: 2018-05-30 07:04+0000\n"
+ "Last-Translator: csslayer <wengxt@gmail.com>\n"
+ "Language-Team: Turkish (http://www.transifex.com/fcitx/fcitx/language/tr/)\n"
+-"Language: tr\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
++"Language: tr\n"
+ "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:348
+-#. i18n: ectx: property (text), widget (QLabel, label_4)
+-msgid "<b>Select Input Schema:</b>"
++#: gui/src/ConfigMain.cpp:246
++msgid "Fcitx Rime Config GUI Tool"
+ msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:283
+-#. i18n: ectx: property (text), widget (QLabel, label_2)
+-msgid "Active Input Schemas:"
+-msgstr ""
++#: src/fcitx-rime.c:60
++msgid "Rime is under maintenance ..."
++msgstr "Rime bakımda..."
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:221
+-#. i18n: ectx: property (text), widget (QLabel, label)
+-msgid "Available Input Schemas:"
+-msgstr ""
++#: src/fcitx-rime.c:62
++msgid "Rime is ready."
++msgstr "Rime hazır."
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:33
+-#. i18n: ectx: property (text), widget (QLabel, toggle_label)
+-msgid "Call-out Menu"
+-msgstr ""
++#: src/fcitx-rime.c:64
++msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
++msgstr "Rime bir hatayla karşılaştı. Detaylar için  /tmp/rime.fcitx.ERROR  yoluna bakın."
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:179
+-#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
+-msgid "Candidate Word Number"
+-msgstr ""
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
++#: src/rime.conf.in:3
++msgid "Rime"
++msgstr "Rime"
+ 
+-#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
++#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
+ msgid "Deploy"
+ msgstr "Dağıt"
+ 
+-#: src/fcitx-rime.c:528
++#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++msgid "Synchronize"
++msgstr "Eşitleme"
++
++#: src/fcitx-rime.c:172
++msgid "Schema List"
++msgstr "Şema Listesi"
++
++#: src/fcitx-rime.c:527
+ msgid "English"
+ msgstr "İngilizce"
+ 
++#: src/fcitx-rime.conf.in:4
++msgid "Rime Wrapper For Fcitx"
++msgstr "Fcitx için Rime Wrapper"
++
+ #: src/fcitx-rime.conf.in:11
+ msgid "Fcitx Rime Config"
+ msgstr ""
+ 
+-#: gui/src/ConfigMain.cpp:244
+-msgid "Fcitx Rime Config GUI Tool"
+-msgstr ""
+-
+-#. i18n: file: gui/src/ConfigMain.ui:114
+-#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
+-msgid "Half/Full Shape"
+-msgstr ""
+-
+ #. i18n: file: gui/src/ConfigMain.ui:14
+ #. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
+ msgid "MainWindow"
+ msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:86
+-#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
+-msgid "Page Down"
++#. i18n: file: gui/src/ConfigMain.ui:26
++#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
++msgid "Shortcut"
++msgstr ""
++
++#. i18n: file: gui/src/ConfigMain.ui:33
++#. i18n: ectx: property (text), widget (QLabel, toggle_label)
++msgid "Call-out Menu"
+ msgstr ""
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:58
+@@ -79,61 +83,55 @@ msgstr ""
+ msgid "Page Up"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
+-#: src/rime.conf.in:3
+-msgid "Rime"
+-msgstr "Rime"
++#. i18n: file: gui/src/ConfigMain.ui:86
++#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
++msgid "Page Down"
++msgstr ""
+ 
+-#: src/fcitx-rime.conf.in:4
+-msgid "Rime Wrapper For Fcitx"
+-msgstr "Fcitx için Rime Wrapper"
++#. i18n: file: gui/src/ConfigMain.ui:114
++#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
++msgid "Half/Full Shape"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:64
+-msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
++#. i18n: file: gui/src/ConfigMain.ui:139
++#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
++msgid "Western/Eastern"
+ msgstr ""
+-"Rime bir hatayla karşılaştı. Detaylar için  /tmp/rime.fcitx.ERROR  yoluna "
+-"bakın."
+ 
+-#: src/fcitx-rime.c:62
+-msgid "Rime is ready."
+-msgstr "Rime hazır."
++#. i18n: file: gui/src/ConfigMain.ui:159
++#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
++msgid "Traditional/Simplified"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:60
+-msgid "Rime is under maintenance ..."
+-msgstr "Rime bakımda..."
++#. i18n: file: gui/src/ConfigMain.ui:179
++#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
++msgid "Candidate Word Number"
++msgstr ""
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:195
+ #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+ msgid "Schema"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:173
+-msgid "Schema List"
+-msgstr "Şema Listesi"
+-
+-#. i18n: file: gui/src/ConfigMain.ui:26
+-#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
+-msgid "Shortcut"
++#. i18n: file: gui/src/ConfigMain.ui:221
++#. i18n: ectx: property (text), widget (QLabel, label)
++msgid "Available Input Schemas:"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
+-msgid "Synchronize"
+-msgstr "Eşitleme"
++#. i18n: file: gui/src/ConfigMain.ui:283
++#. i18n: ectx: property (text), widget (QLabel, label_2)
++msgid "Active Input Schemas:"
++msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:159
+-#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
+-msgid "Traditional/Simplified"
++#. i18n: file: gui/src/ConfigMain.ui:348
++#. i18n: ectx: property (text), widget (QLabel, label_4)
++msgid "<b>Select Input Schema:</b>"
+ msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:139
+-#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
+-msgid "Western/Eastern"
++msgctxt "NAME OF TRANSLATORS"
++msgid "Your names"
+ msgstr ""
+ 
+ msgctxt "EMAIL OF TRANSLATORS"
+ msgid "Your emails"
+ msgstr ""
+-
+-msgctxt "NAME OF TRANSLATORS"
+-msgid "Your names"
+-msgstr ""
+diff --git a/po/vi.po b/po/vi.po
+index fc034bc..42f4766 100644
+--- a/po/vi.po
++++ b/po/vi.po
+@@ -1,7 +1,7 @@
+ # SOME DESCRIPTIVE TITLE.
+ # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+ # This file is distributed under the same license as the PACKAGE package.
+-#
++# 
+ # Translators:
+ # Trong Dzang <contact@bizover.net>, 2013
+ msgid ""
+@@ -9,70 +9,73 @@ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+ "POT-Creation-Date: 2018-05-30 00:03-0700\n"
+-"PO-Revision-Date: 2017-09-19 16:05+0000\n"
++"PO-Revision-Date: 2018-05-30 07:04+0000\n"
+ "Last-Translator: csslayer <wengxt@gmail.com>\n"
+-"Language-Team: Vietnamese (http://www.transifex.com/fcitx/fcitx/language/"
+-"vi/)\n"
+-"Language: vi\n"
++"Language-Team: Vietnamese (http://www.transifex.com/fcitx/fcitx/language/vi/)\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
++"Language: vi\n"
+ "Plural-Forms: nplurals=1; plural=0;\n"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:348
+-#. i18n: ectx: property (text), widget (QLabel, label_4)
+-msgid "<b>Select Input Schema:</b>"
++#: gui/src/ConfigMain.cpp:246
++msgid "Fcitx Rime Config GUI Tool"
+ msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:283
+-#. i18n: ectx: property (text), widget (QLabel, label_2)
+-msgid "Active Input Schemas:"
+-msgstr ""
++#: src/fcitx-rime.c:60
++msgid "Rime is under maintenance ..."
++msgstr "Rime đang bảo trì..."
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:221
+-#. i18n: ectx: property (text), widget (QLabel, label)
+-msgid "Available Input Schemas:"
+-msgstr ""
++#: src/fcitx-rime.c:62
++msgid "Rime is ready."
++msgstr "Rime sẵn sàng,"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:33
+-#. i18n: ectx: property (text), widget (QLabel, toggle_label)
+-msgid "Call-out Menu"
+-msgstr ""
++#: src/fcitx-rime.c:64
++msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
++msgstr "Rime gặp lỗi. Xem ở /tmp/rime.fcitx.ERROR để biết chi tiết."
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:179
+-#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
+-msgid "Candidate Word Number"
+-msgstr ""
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
++#: src/rime.conf.in:3
++msgid "Rime"
++msgstr "Rime"
+ 
+ #: src/fcitx-rime.c:148 src/fcitx-rime.c:149
+ msgid "Deploy"
+ msgstr "Triển khai"
+ 
++#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++msgid "Synchronize"
++msgstr "Đồng bộ hóa"
++
++#: src/fcitx-rime.c:172
++msgid "Schema List"
++msgstr ""
++
+ #: src/fcitx-rime.c:527
+ msgid "English"
+ msgstr ""
+ 
++#: src/fcitx-rime.conf.in:4
++msgid "Rime Wrapper For Fcitx"
++msgstr "Bộ Wrapper cho Fcitx"
++
+ #: src/fcitx-rime.conf.in:11
+ msgid "Fcitx Rime Config"
+ msgstr ""
+ 
+-#: gui/src/ConfigMain.cpp:246
+-msgid "Fcitx Rime Config GUI Tool"
+-msgstr ""
+-
+-#. i18n: file: gui/src/ConfigMain.ui:114
+-#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
+-msgid "Half/Full Shape"
+-msgstr ""
+-
+ #. i18n: file: gui/src/ConfigMain.ui:14
+ #. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
+ msgid "MainWindow"
+ msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:86
+-#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
+-msgid "Page Down"
++#. i18n: file: gui/src/ConfigMain.ui:26
++#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
++msgid "Shortcut"
++msgstr ""
++
++#. i18n: file: gui/src/ConfigMain.ui:33
++#. i18n: ectx: property (text), widget (QLabel, toggle_label)
++msgid "Call-out Menu"
+ msgstr ""
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:58
+@@ -80,59 +83,55 @@ msgstr ""
+ msgid "Page Up"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
+-#: src/rime.conf.in:3
+-msgid "Rime"
+-msgstr "Rime"
++#. i18n: file: gui/src/ConfigMain.ui:86
++#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
++msgid "Page Down"
++msgstr ""
+ 
+-#: src/fcitx-rime.conf.in:4
+-msgid "Rime Wrapper For Fcitx"
+-msgstr "Bộ Wrapper cho Fcitx"
++#. i18n: file: gui/src/ConfigMain.ui:114
++#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
++msgid "Half/Full Shape"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:64
+-msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
+-msgstr "Rime gặp lỗi. Xem ở /tmp/rime.fcitx.ERROR để biết chi tiết."
++#. i18n: file: gui/src/ConfigMain.ui:139
++#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
++msgid "Western/Eastern"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:62
+-msgid "Rime is ready."
+-msgstr "Rime sẵn sàng,"
++#. i18n: file: gui/src/ConfigMain.ui:159
++#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
++msgid "Traditional/Simplified"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:60
+-msgid "Rime is under maintenance ..."
+-msgstr "Rime đang bảo trì..."
++#. i18n: file: gui/src/ConfigMain.ui:179
++#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
++msgid "Candidate Word Number"
++msgstr ""
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:195
+ #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+ msgid "Schema"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:172
+-msgid "Schema List"
++#. i18n: file: gui/src/ConfigMain.ui:221
++#. i18n: ectx: property (text), widget (QLabel, label)
++msgid "Available Input Schemas:"
+ msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:26
+-#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
+-msgid "Shortcut"
++#. i18n: file: gui/src/ConfigMain.ui:283
++#. i18n: ectx: property (text), widget (QLabel, label_2)
++msgid "Active Input Schemas:"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
+-msgid "Synchronize"
+-msgstr "Đồng bộ hóa"
+-
+-#. i18n: file: gui/src/ConfigMain.ui:159
+-#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
+-msgid "Traditional/Simplified"
++#. i18n: file: gui/src/ConfigMain.ui:348
++#. i18n: ectx: property (text), widget (QLabel, label_4)
++msgid "<b>Select Input Schema:</b>"
+ msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:139
+-#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
+-msgid "Western/Eastern"
++msgctxt "NAME OF TRANSLATORS"
++msgid "Your names"
+ msgstr ""
+ 
+ msgctxt "EMAIL OF TRANSLATORS"
+ msgid "Your emails"
+ msgstr ""
+-
+-msgctxt "NAME OF TRANSLATORS"
+-msgid "Your names"
+-msgstr ""
+diff --git a/po/zh_CN.po b/po/zh_CN.po
+index 714193e..a3bc7ac 100644
+--- a/po/zh_CN.po
++++ b/po/zh_CN.po
+@@ -1,7 +1,7 @@
+ # SOME DESCRIPTIVE TITLE.
+ # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+ # This file is distributed under the same license as the PACKAGE package.
+-#
++# 
+ # Translators:
+ # csslayer <wengxt@gmail.com>, 2014,2018
+ # csslayer <wengxt@gmail.com>, 2012-2013
+@@ -10,131 +10,130 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+-"POT-Creation-Date: 2019-11-03 12:28-0800\n"
++"POT-Creation-Date: 2018-05-30 00:03-0700\n"
+ "PO-Revision-Date: 2018-07-19 05:45+0000\n"
+ "Last-Translator: wwj402 <wwj402@gmail.com>\n"
+-"Language-Team: Chinese (China) (http://www.transifex.com/fcitx/fcitx/"
+-"language/zh_CN/)\n"
+-"Language: zh_CN\n"
++"Language-Team: Chinese (China) (http://www.transifex.com/fcitx/fcitx/language/zh_CN/)\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
++"Language: zh_CN\n"
+ "Plural-Forms: nplurals=1; plural=0;\n"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:348
+-#. i18n: ectx: property (text), widget (QLabel, label_4)
+-msgid "<b>Select Input Schema:</b>"
+-msgstr "<b>选择输入方案：</b>"
++#: gui/src/ConfigMain.cpp:246
++msgid "Fcitx Rime Config GUI Tool"
++msgstr "Fcitx Rime 配置 GUI 工具"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:283
+-#. i18n: ectx: property (text), widget (QLabel, label_2)
+-msgid "Active Input Schemas:"
+-msgstr "激活的输入方案："
++#: src/fcitx-rime.c:60
++msgid "Rime is under maintenance ..."
++msgstr "Rime 正在维护中..."
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:221
+-#. i18n: ectx: property (text), widget (QLabel, label)
+-msgid "Available Input Schemas:"
+-msgstr "可用的输入方案："
++#: src/fcitx-rime.c:62
++msgid "Rime is ready."
++msgstr "Rime 就绪。"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:33
+-#. i18n: ectx: property (text), widget (QLabel, toggle_label)
+-msgid "Call-out Menu"
+-msgstr "调用菜单"
++#: src/fcitx-rime.c:64
++msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
++msgstr "Rime 出现了一个错误。请参阅/tmp/rime.fcitx.ERROR中细节。"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:179
+-#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
+-msgid "Candidate Word Number"
+-msgstr "候选词个数"
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
++#: src/rime.conf.in:3
++msgid "Rime"
++msgstr "中州韻"
+ 
+-#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
++#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
+ msgid "Deploy"
+ msgstr "重新部署"
+ 
+-#: src/fcitx-rime.c:528
++#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++msgid "Synchronize"
++msgstr "同步"
++
++#: src/fcitx-rime.c:172
++msgid "Schema List"
++msgstr "方案列表"
++
++#: src/fcitx-rime.c:527
+ msgid "English"
+ msgstr "英文"
+ 
++#: src/fcitx-rime.conf.in:4
++msgid "Rime Wrapper For Fcitx"
++msgstr "Fcitx 的中州韻封装"
++
+ #: src/fcitx-rime.conf.in:11
+ msgid "Fcitx Rime Config"
+ msgstr "Fcitx Rime 配置"
+ 
+-#: gui/src/ConfigMain.cpp:244
+-msgid "Fcitx Rime Config GUI Tool"
+-msgstr "Fcitx Rime 配置 GUI 工具"
+-
+-#. i18n: file: gui/src/ConfigMain.ui:114
+-#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
+-msgid "Half/Full Shape"
+-msgstr "半/全 角"
+-
+ #. i18n: file: gui/src/ConfigMain.ui:14
+ #. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
+ msgid "MainWindow"
+ msgstr "主窗口"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:86
+-#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
+-msgid "Page Down"
+-msgstr "向下翻页"
++#. i18n: file: gui/src/ConfigMain.ui:26
++#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
++msgid "Shortcut"
++msgstr "快捷键"
++
++#. i18n: file: gui/src/ConfigMain.ui:33
++#. i18n: ectx: property (text), widget (QLabel, toggle_label)
++msgid "Call-out Menu"
++msgstr "调用菜单"
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:58
+ #. i18n: ectx: property (text), widget (QLabel, label_pageup)
+ msgid "Page Up"
+ msgstr "向上翻页"
+ 
+-#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
+-#: src/rime.conf.in:3
+-msgid "Rime"
+-msgstr "中州韻"
++#. i18n: file: gui/src/ConfigMain.ui:86
++#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
++msgid "Page Down"
++msgstr "向下翻页"
+ 
+-#: src/fcitx-rime.conf.in:4
+-msgid "Rime Wrapper For Fcitx"
+-msgstr "Fcitx 的中州韻封装"
++#. i18n: file: gui/src/ConfigMain.ui:114
++#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
++msgid "Half/Full Shape"
++msgstr "半/全 角"
+ 
+-#: src/fcitx-rime.c:64
+-msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
+-msgstr "Rime 出现了一个错误。请参阅/tmp/rime.fcitx.ERROR中细节。"
++#. i18n: file: gui/src/ConfigMain.ui:139
++#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
++msgid "Western/Eastern"
++msgstr "英文/中文"
+ 
+-#: src/fcitx-rime.c:62
+-msgid "Rime is ready."
+-msgstr "Rime 就绪。"
++#. i18n: file: gui/src/ConfigMain.ui:159
++#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
++msgid "Traditional/Simplified"
++msgstr "繁体/简体"
+ 
+-#: src/fcitx-rime.c:60
+-msgid "Rime is under maintenance ..."
+-msgstr "Rime 正在维护中..."
++#. i18n: file: gui/src/ConfigMain.ui:179
++#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
++msgid "Candidate Word Number"
++msgstr "候选词个数"
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:195
+ #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+ msgid "Schema"
+ msgstr "输入方案"
+ 
+-#: src/fcitx-rime.c:173
+-msgid "Schema List"
+-msgstr "方案列表"
+-
+-#. i18n: file: gui/src/ConfigMain.ui:26
+-#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
+-msgid "Shortcut"
+-msgstr "快捷键"
++#. i18n: file: gui/src/ConfigMain.ui:221
++#. i18n: ectx: property (text), widget (QLabel, label)
++msgid "Available Input Schemas:"
++msgstr "可用的输入方案："
+ 
+-#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
+-msgid "Synchronize"
+-msgstr "同步"
++#. i18n: file: gui/src/ConfigMain.ui:283
++#. i18n: ectx: property (text), widget (QLabel, label_2)
++msgid "Active Input Schemas:"
++msgstr "激活的输入方案："
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:159
+-#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
+-msgid "Traditional/Simplified"
+-msgstr "繁体/简体"
++#. i18n: file: gui/src/ConfigMain.ui:348
++#. i18n: ectx: property (text), widget (QLabel, label_4)
++msgid "<b>Select Input Schema:</b>"
++msgstr "<b>选择输入方案：</b>"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:139
+-#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
+-msgid "Western/Eastern"
+-msgstr "英文/中文"
++msgctxt "NAME OF TRANSLATORS"
++msgid "Your names"
++msgstr "Weng Xuetian"
+ 
+ msgctxt "EMAIL OF TRANSLATORS"
+ msgid "Your emails"
+ msgstr "wengxt@gmail.com"
+-
+-msgctxt "NAME OF TRANSLATORS"
+-msgid "Your names"
+-msgstr "Weng Xuetian"
+diff --git a/po/zh_TW.po b/po/zh_TW.po
+index 119a409..beb2090 100644
+--- a/po/zh_TW.po
++++ b/po/zh_TW.po
+@@ -1,79 +1,82 @@
+ # SOME DESCRIPTIVE TITLE.
+ # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+ # This file is distributed under the same license as the PACKAGE package.
+-#
++# 
+ # Translators:
+-# Jeff Huang <s8321414@gmail.com>, 2015
++# 黃柏諺 <s8321414@gmail.com>, 2015
+ # csslayer <wengxt@gmail.com>, 2015
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+-"POT-Creation-Date: 2018-05-31 00:03-0700\n"
++"POT-Creation-Date: 2018-05-30 00:03-0700\n"
+ "PO-Revision-Date: 2018-05-30 07:04+0000\n"
+ "Last-Translator: csslayer <wengxt@gmail.com>\n"
+-"Language-Team: Chinese (Taiwan) (http://www.transifex.com/fcitx/fcitx/"
+-"language/zh_TW/)\n"
+-"Language: zh_TW\n"
++"Language-Team: Chinese (Taiwan) (http://www.transifex.com/fcitx/fcitx/language/zh_TW/)\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
++"Language: zh_TW\n"
+ "Plural-Forms: nplurals=1; plural=0;\n"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:348
+-#. i18n: ectx: property (text), widget (QLabel, label_4)
+-msgid "<b>Select Input Schema:</b>"
++#: gui/src/ConfigMain.cpp:246
++msgid "Fcitx Rime Config GUI Tool"
+ msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:283
+-#. i18n: ectx: property (text), widget (QLabel, label_2)
+-msgid "Active Input Schemas:"
+-msgstr ""
++#: src/fcitx-rime.c:60
++msgid "Rime is under maintenance ..."
++msgstr "Rime 仍在維護中..."
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:221
+-#. i18n: ectx: property (text), widget (QLabel, label)
+-msgid "Available Input Schemas:"
+-msgstr ""
++#: src/fcitx-rime.c:62
++msgid "Rime is ready."
++msgstr "Rime 準備好了。"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:33
+-#. i18n: ectx: property (text), widget (QLabel, toggle_label)
+-msgid "Call-out Menu"
+-msgstr ""
++#: src/fcitx-rime.c:64
++msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
++msgstr "Rime 遇到了一個錯誤。見 /tmp/rime.fcitx.ERROR 以取得更多資訊。"
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:179
+-#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
+-msgid "Candidate Word Number"
+-msgstr ""
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
++#: src/rime.conf.in:3
++msgid "Rime"
++msgstr "中州韻"
+ 
+-#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
++#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
+ msgid "Deploy"
+ msgstr "重新部署"
+ 
+-#: src/fcitx-rime.c:528
++#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++msgid "Synchronize"
++msgstr "同步"
++
++#: src/fcitx-rime.c:172
++msgid "Schema List"
++msgstr "方案選單"
++
++#: src/fcitx-rime.c:527
+ msgid "English"
+ msgstr "英語"
+ 
++#: src/fcitx-rime.conf.in:4
++msgid "Rime Wrapper For Fcitx"
++msgstr "Fcitx 的中州韻封裝"
++
+ #: src/fcitx-rime.conf.in:11
+ msgid "Fcitx Rime Config"
+ msgstr ""
+ 
+-#: gui/src/ConfigMain.cpp:244
+-msgid "Fcitx Rime Config GUI Tool"
+-msgstr ""
+-
+-#. i18n: file: gui/src/ConfigMain.ui:114
+-#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
+-msgid "Half/Full Shape"
+-msgstr ""
+-
+ #. i18n: file: gui/src/ConfigMain.ui:14
+ #. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
+ msgid "MainWindow"
+ msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:86
+-#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
+-msgid "Page Down"
++#. i18n: file: gui/src/ConfigMain.ui:26
++#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
++msgid "Shortcut"
++msgstr ""
++
++#. i18n: file: gui/src/ConfigMain.ui:33
++#. i18n: ectx: property (text), widget (QLabel, toggle_label)
++msgid "Call-out Menu"
+ msgstr ""
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:58
+@@ -81,59 +84,55 @@ msgstr ""
+ msgid "Page Up"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
+-#: src/rime.conf.in:3
+-msgid "Rime"
+-msgstr "中州韻"
++#. i18n: file: gui/src/ConfigMain.ui:86
++#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
++msgid "Page Down"
++msgstr ""
+ 
+-#: src/fcitx-rime.conf.in:4
+-msgid "Rime Wrapper For Fcitx"
+-msgstr "Fcitx 的中州韻封裝"
++#. i18n: file: gui/src/ConfigMain.ui:114
++#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
++msgid "Half/Full Shape"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:64
+-msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
+-msgstr "Rime 遇到了一個錯誤。見 /tmp/rime.fcitx.ERROR 以取得更多資訊。"
++#. i18n: file: gui/src/ConfigMain.ui:139
++#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
++msgid "Western/Eastern"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:62
+-msgid "Rime is ready."
+-msgstr "Rime 準備好了。"
++#. i18n: file: gui/src/ConfigMain.ui:159
++#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
++msgid "Traditional/Simplified"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:60
+-msgid "Rime is under maintenance ..."
+-msgstr "Rime 仍在維護中..."
++#. i18n: file: gui/src/ConfigMain.ui:179
++#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
++msgid "Candidate Word Number"
++msgstr ""
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:195
+ #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+ msgid "Schema"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:173
+-msgid "Schema List"
+-msgstr "方案選單"
+-
+-#. i18n: file: gui/src/ConfigMain.ui:26
+-#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
+-msgid "Shortcut"
++#. i18n: file: gui/src/ConfigMain.ui:221
++#. i18n: ectx: property (text), widget (QLabel, label)
++msgid "Available Input Schemas:"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
+-msgid "Synchronize"
+-msgstr "同步"
++#. i18n: file: gui/src/ConfigMain.ui:283
++#. i18n: ectx: property (text), widget (QLabel, label_2)
++msgid "Active Input Schemas:"
++msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:159
+-#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
+-msgid "Traditional/Simplified"
++#. i18n: file: gui/src/ConfigMain.ui:348
++#. i18n: ectx: property (text), widget (QLabel, label_4)
++msgid "<b>Select Input Schema:</b>"
+ msgstr ""
+ 
+-#. i18n: file: gui/src/ConfigMain.ui:139
+-#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
+-msgid "Western/Eastern"
++msgctxt "NAME OF TRANSLATORS"
++msgid "Your names"
+ msgstr ""
+ 
+ msgctxt "EMAIL OF TRANSLATORS"
+ msgid "Your emails"
+ msgstr ""
+-
+-msgctxt "NAME OF TRANSLATORS"
+-msgid "Your names"
+-msgstr ""

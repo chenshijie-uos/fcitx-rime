@@ -1,0 +1,37 @@
+From: xzhao <i@xuzhao.net>
+Date: Wed, 30 May 2018 12:16:09 -0400
+Subject: Remove dependency on fcitx-qt (#41)
+
+Applied-Upstream: commit:ce204a8697a53e5918c60e35ea8938ffff2534d9
+---
+ gui/CMakeLists.txt     | 3 +--
+ gui/src/CMakeLists.txt | 1 -
+ 2 files changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/gui/CMakeLists.txt b/gui/CMakeLists.txt
+index 2c57245..b0a6c77 100644
+--- a/gui/CMakeLists.txt
++++ b/gui/CMakeLists.txt
+@@ -1,9 +1,8 @@
+ set(REQUIRED_QT_VERSION 5.1.0)
+ 
+-find_package(FcitxQt5WidgetsAddons 1.0.0 REQUIRED)
++find_package(FcitxQt5WidgetsAddons 1.1.0 REQUIRED)
+ find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED Core Widgets Concurrent)
+ find_package(Rime REQUIRED)
+-pkg_check_modules(FcitxQt "fcitx-qt>=4.2.8" REQUIRED IMPORTED_TARGET)
+ pkg_check_modules(Rime "rime>=1.0.0" REQUIRED IMPORTED_TARGET)
+ 
+ add_subdirectory(src)
+diff --git a/gui/src/CMakeLists.txt b/gui/src/CMakeLists.txt
+index 0338164..8d97a14 100644
+--- a/gui/src/CMakeLists.txt
++++ b/gui/src/CMakeLists.txt
+@@ -34,7 +34,6 @@ target_link_libraries(fcitx-rime-config-gui
+   Qt5::Widgets
+   Qt5::Concurrent
+   FcitxQt5::WidgetsAddons
+-  PkgConfig::FcitxQt
+   PkgConfig::Rime
+   ${FCITX4_FCITX_UTILS_LIBRARIES}
+   ${FCITX4_FCITX_CONFIG_LIBRARIES})

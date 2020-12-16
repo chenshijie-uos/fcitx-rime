@@ -1,0 +1,1257 @@
+From: Weng Xuetian <wengxt@gmail.com>
+Date: Wed, 30 May 2018 13:58:25 -0700
+Subject: Clean Up the gui code and fix some leaks.
+
+Applied-Upstream: a7ffcb38e719e4f8a8185c66d8691bcf9e8a4dc6
+---
+ gui/src/CMakeLists.txt       |   4 +-
+ gui/src/ConfigMain.cpp       | 218 ++++++++++++--------------------
+ gui/src/ConfigMain.h         |  10 +-
+ gui/src/FcitxRimeConfig.cpp  | 285 ------------------------------------------
+ gui/src/FcitxRimeConfig.h    |  66 ----------
+ gui/src/Main.cpp             |  10 +-
+ gui/src/Main.h               |   4 +-
+ gui/src/Model.cpp            |   6 +-
+ gui/src/Model.h              |   3 +-
+ gui/src/RimeConfigParser.cpp | 289 +++++++++++++++++++++++++++++++++++++++++++
+ gui/src/RimeConfigParser.h   |  84 +++++++++++++
+ src/fcitx-rime.c             |   1 +
+ 12 files changed, 469 insertions(+), 511 deletions(-)
+ delete mode 100644 gui/src/FcitxRimeConfig.cpp
+ delete mode 100644 gui/src/FcitxRimeConfig.h
+ create mode 100644 gui/src/RimeConfigParser.cpp
+ create mode 100644 gui/src/RimeConfigParser.h
+
+diff --git a/gui/src/CMakeLists.txt b/gui/src/CMakeLists.txt
+index 8d97a14..18915d4 100644
+--- a/gui/src/CMakeLists.txt
++++ b/gui/src/CMakeLists.txt
+@@ -2,13 +2,13 @@ set(FRCU_SRCS
+   Main.cpp
+   ConfigMain.cpp
+   Model.cpp
+-  FcitxRimeConfig.cpp)
++  RimeConfigParser.cpp)
+ set(FRCU_HDRS
+   Main.h
+   ConfigMain.h
+   Model.h
+   Common.h
+-  FcitxRimeConfig.h)
++  RimeConfigParser.h)
+ 
+ set(FRCU_UIS
+   ConfigMain.ui)
+diff --git a/gui/src/ConfigMain.cpp b/gui/src/ConfigMain.cpp
+index c5197f8..dc4b631 100644
+--- a/gui/src/ConfigMain.cpp
++++ b/gui/src/ConfigMain.cpp
+@@ -17,22 +17,22 @@
+ //
+ #include <fcitx-config/xdg.h>
+ 
+-#include <QDialogButtonBox>
+-#include <QFutureWatcher>
+-#include <QTreeWidgetItem>
+-#include <QtConcurrentRun>
+-
+ #include "Common.h"
+ #include "ConfigMain.h"
++#include <QDialogButtonBox>
++#include <QFutureWatcher>
+ #include <QListWidgetItem>
+ #include <QStandardItemModel>
++#include <QTreeWidgetItem>
++#include <QtConcurrentRun>
++#include <QtGlobal>
+ 
+ // TODO: when failed-read happens, disable ui
+ // TODO: when failed-save happens, disable ui and show reason
+ 
+ namespace fcitx_rime {
+ ConfigMain::ConfigMain(QWidget *parent)
+-    : FcitxQtConfigUIWidget(parent), model(new FcitxRimeConfigDataModel()) {
++    : FcitxQtConfigUIWidget(parent), model(new RimeConfigDataModel()) {
+     // Setup UI
+     setMinimumSize(680, 500);
+     setupUi(this);
+@@ -43,41 +43,35 @@ ConfigMain::ConfigMain(QWidget *parent)
+     moveDownButton->setIcon(QIcon::fromTheme("go-down"));
+     // configureButton->setIcon(QIcon::fromTheme("help-about"));
+     // listViews for currentIM and availIM
+-    QStandardItemModel *listModel = new QStandardItemModel();
++    QStandardItemModel *listModel = new QStandardItemModel(this);
+     currentIMView->setModel(listModel);
+-    QStandardItemModel *availIMModel = new QStandardItemModel();
++    QStandardItemModel *availIMModel = new QStandardItemModel(this);
+     availIMView->setModel(availIMModel);
+     // tab shortcut
+-    connect(cand_cnt_spinbox, SIGNAL(valueChanged(int)), this,
+-            SLOT(stateChanged()));
++    connect(cand_cnt_spinbox, QOverload<int>::of(&QSpinBox::valueChanged), this,
++            &ConfigMain::stateChanged);
+     QList<FcitxQtKeySequenceWidget *> keywgts =
+         general_tab->findChildren<FcitxQtKeySequenceWidget *>();
+     for (size_t i = 0; i < keywgts.size(); i++) {
+-        connect(keywgts[i],
+-                SIGNAL(keySequenceChanged(QKeySequence, FcitxQtModifierSide)),
+-                this, SLOT(keytoggleChanged()));
++        connect(keywgts[i], &FcitxQtKeySequenceWidget::keySequenceChanged, this,
++                &ConfigMain::keytoggleChanged);
+     }
+     // tab schemas
+-    connect(removeIMButton, SIGNAL(clicked(bool)), this, SLOT(removeIM()));
+-    connect(addIMButton, SIGNAL(clicked(bool)), this, SLOT(addIM()));
+-    connect(moveUpButton, SIGNAL(clicked(bool)), this, SLOT(moveUpIM()));
+-    connect(moveDownButton, SIGNAL(clicked(bool)), this, SLOT(moveDownIM()));
+-    connect(availIMView->selectionModel(),
+-            SIGNAL(currentChanged(QModelIndex, QModelIndex)), this,
+-            SLOT(availIMSelectionChanged()));
++    connect(removeIMButton, &QPushButton::clicked, this, &ConfigMain::removeIM);
++    connect(addIMButton, &QPushButton::clicked, this, &ConfigMain::addIM);
++    connect(moveUpButton, &QPushButton::clicked, this, &ConfigMain::moveUpIM);
++    connect(moveDownButton, &QPushButton::clicked, this,
++            &ConfigMain::moveDownIM);
++    connect(availIMView->selectionModel(), &QItemSelectionModel::currentChanged,
++            this, &ConfigMain::availIMSelectionChanged);
+     connect(currentIMView->selectionModel(),
+-            SIGNAL(currentChanged(QModelIndex, QModelIndex)), this,
+-            SLOT(activeIMSelectionChanged()));
+-    rime = FcitxRimeConfigCreate();
+-    FcitxRimeConfigStart(rime);
++            &QItemSelectionModel::currentChanged, this,
++            &ConfigMain::activeIMSelectionChanged);
+     yamlToModel();
+     modelToUi();
+ }
+ 
+-ConfigMain::~ConfigMain() {
+-    FcitxRimeDestroy(rime);
+-    delete model;
+-}
++ConfigMain::~ConfigMain() { delete model; }
+ 
+ void ConfigMain::keytoggleChanged() { stateChanged(); }
+ 
+@@ -297,7 +291,10 @@ void ConfigMain::save() {
+     QFutureWatcher<void> *futureWatcher = new QFutureWatcher<void>(this);
+     futureWatcher->setFuture(
+         QtConcurrent::run<void>(this, &ConfigMain::modelToYaml));
+-    connect(futureWatcher, SIGNAL(finished()), this, SIGNAL(saveFinished()));
++    connect(futureWatcher, &QFutureWatcher<void>::finished, this, [this]() {
++        emit changed(false);
++        emit saveFinished();
++    });
+ }
+ 
+ QList<FcitxQtKeySequenceWidget *>
+@@ -378,135 +375,78 @@ void ConfigMain::updateIMList() {
+     }
+ }
+ 
+-// type: toggle 0, send 1
+-void ConfigMain::setModelKeysToYaml(QVector<FcitxKeySeq> &model_keys, int type,
+-                                    const char *key) {
+-    char **keys =
+-        (char **)fcitx_utils_malloc0(sizeof(char *) * model_keys.size());
+-    for (int i = 0; i < model_keys.size(); i++) {
+-        std::string s = model_keys[i].toString();
+-        keys[i] = (char *)fcitx_utils_malloc0(s.length() + 1);
+-        memcpy(keys[i], s.c_str(), s.length());
+-    }
+-    FcitxRimeConfigSetKeyBindingSet(rime->default_conf, type, key,
+-                                    (const char **)keys, model_keys.size());
+-    for (int i = 0; i < model_keys.size(); i++) {
+-        fcitx_utils_free(keys[i]);
+-    }
+-    fcitx_utils_free(keys);
+-}
+-
+ void ConfigMain::modelToYaml() {
+-    rime->api->config_set_int(rime->default_conf, "menu/page_size",
+-                              model->candidate_per_word);
+-    char **tkptrs = (char **)fcitx_utils_malloc0(model->toggle_keys.size());
+-    for (size_t i = 0; i < model->toggle_keys.size(); i++) {
+-        std::string s = model->toggle_keys[i].toString();
+-        tkptrs[i] = (char *)fcitx_utils_malloc0(s.length() + 1);
+-        memset(tkptrs[i], 0, s.length() + 1);
+-        memcpy(tkptrs[i], s.c_str(), s.length());
+-    }
+-    FcitxRimeConfigSetToggleKeys(rime, rime->default_conf,
+-                                 (const char **)tkptrs,
+-                                 model->toggle_keys.size());
++    config.setInteger("menu/page_size", model->candidate_per_word);
++    std::vector<std::string> toggleKeys;
+     for (size_t i = 0; i < model->toggle_keys.size(); i++) {
+-        fcitx_utils_free(tkptrs[i]);
++        toggleKeys.push_back(model->toggle_keys[i].toString());
+     }
+-    fcitx_utils_free(tkptrs);
+ 
+-    setModelKeysToYaml(model->ascii_key, 0, "ascii_mode");
+-    setModelKeysToYaml(model->trasim_key, 0, "simplification");
+-    setModelKeysToYaml(model->halffull_key, 0, "full_shape");
+-    setModelKeysToYaml(model->pgup_key, 1, "Page_Up");
+-    setModelKeysToYaml(model->pgdown_key, 1, "Page_Down");
++    config.setToggleKeys(toggleKeys);
++
++    // FIXME: implement new ui for key bindings.
++    // setModelKeysToYaml(model->ascii_key, 0, "ascii_mode");
++    // setModelKeysToYaml(model->trasim_key, 0, "simplification");
++    // setModelKeysToYaml(model->halffull_key, 0, "full_shape");
++    // setModelKeysToYaml(model->pgup_key, 1, "Page_Up");
++    // setModelKeysToYaml(model->pgdown_key, 1, "Page_Down");
+ 
+     // set active schema list
+-    int active = 0;
+-    char **schema_names =
+-        (char **)fcitx_utils_malloc0(sizeof(char *) * model->schemas_.size());
++    std::vector<std::string> schemaNames;
++    schemaNames.reserve(model->schemas_.size());
+     for (int i = 0; i < model->schemas_.size(); i++) {
+         if (model->schemas_[i].index == 0) {
+             break;
+         } else {
+-            std::string schema_id = model->schemas_[i].id.toStdString();
+-            size_t len = schema_id.length();
+-            schema_names[active] = (char *)fcitx_utils_malloc0(len + 1);
+-            memcpy(schema_names[active], schema_id.c_str(), len);
+-            active += 1;
++            schemaNames.push_back(model->schemas_[i].id.toStdString());
+         }
+     }
+-    FcitxRimeClearAndSetSchemaList(rime, rime->default_conf, schema_names,
+-                                   active);
+-    for (int i = 0; i < active; i++) {
+-        fcitx_utils_free(schema_names[i]);
+-    }
+-    fcitx_utils_free(schema_names);
++    config.setSchemas(schemaNames);
+ 
+-    FcitxRimeConfigSync(rime);
++    config.sync();
+     return;
+ }
+ 
+ void ConfigMain::yamlToModel() {
+-    FcitxRimeConfigOpenDefault(rime);
+     // load page size
+     int page_size = 0;
+-    bool suc = rime->api->config_get_int(rime->default_conf, "menu/page_size",
+-                                         &page_size);
++    bool suc = config.readInteger("menu/page_size", &page_size);
+     if (suc) {
+         model->candidate_per_word = page_size;
+     } else {
+         model->candidate_per_word = default_page_size;
+     }
+     // toggle keys
+-    size_t keys_size =
+-        FcitxRimeConfigGetToggleKeySize(rime, rime->default_conf);
+-    keys_size = keys_size > max_shortcuts ? max_shortcuts : keys_size;
+-    char **keys = (char **)fcitx_utils_malloc0(sizeof(char *) * keys_size);
+-    FcitxRimeConfigGetToggleKeys(rime, rime->default_conf, keys, keys_size);
+-    for (size_t i = 0; i < keys_size; i++) {
+-        if (strlen(keys[i]) != 0) { // skip the empty keys
+-            model->toggle_keys.push_back(FcitxKeySeq(keys[i]));
++    auto toggleKeys = config.toggleKeys();
++    for (const auto &toggleKey : toggleKeys) {
++        if (!toggleKey.empty()) { // skip the empty keys
++            model->toggle_keys.push_back(FcitxKeySeq(toggleKey.data()));
+         }
+-        fcitx_utils_free(keys[i]);
+     }
+-    fcitx_utils_free(keys);
+     // load other shortcuts
+-    size_t buffer_size = 30;
+-    char *accept = (char *)fcitx_utils_malloc0(buffer_size);
+-    char *act_key = (char *)fcitx_utils_malloc0(buffer_size);
+-    char *act_type = (char *)fcitx_utils_malloc0(buffer_size);
+-    FcitxRimeBeginKeyBinding(rime->default_conf);
+-    size_t toggle_length = FcitxRimeConfigGetKeyBindingSize(rime->default_conf);
+-    for (size_t i = 0; i < toggle_length; i++) {
+-        memset(accept, 0, buffer_size);
+-        memset(act_key, 0, buffer_size);
+-        memset(act_type, 0, buffer_size);
+-        FcitxRimeConfigGetNextKeyBinding(rime->default_conf, act_type, act_key,
+-                                         accept, buffer_size);
+-
+-        if (strlen(accept) != 0) {
+-            if (strcmp(act_key, "ascii_mode") == 0) {
+-                FcitxKeySeq seq = FcitxKeySeq(accept);
+-                model->ascii_key.push_back(seq);
+-            } else if (strcmp(act_key, "full_shape") == 0) {
+-                FcitxKeySeq seq = FcitxKeySeq(accept);
+-                model->halffull_key.push_back(seq);
+-            } else if (strcmp(act_key, "simplification") == 0) {
+-                FcitxKeySeq seq = FcitxKeySeq(accept);
+-                model->trasim_key.push_back(seq);
+-            } else if (strcmp(act_key, "Page_Up") == 0) {
+-                FcitxKeySeq seq = FcitxKeySeq(accept);
+-                model->pgup_key.push_back(seq);
+-            } else if (strcmp(act_key, "Page_Down") == 0) {
+-                FcitxKeySeq seq = FcitxKeySeq(accept);
+-                model->pgdown_key.push_back(seq);
+-            }
++
++    auto bindings = config.keybindings();
++    for (const auto &binding : bindings) {
++        if (binding.accept.empty()) {
++            continue;
++        }
++        if (binding.action == "ascii_mode") {
++            FcitxKeySeq seq(binding.accept);
++            model->ascii_key.push_back(seq);
++        } else if (binding.action == "full_shape") {
++            FcitxKeySeq seq(binding.accept);
++            model->halffull_key.push_back(seq);
++        } else if (binding.action == "simplification") {
++            FcitxKeySeq seq(binding.accept);
++            model->trasim_key.push_back(seq);
++        } else if (binding.action == "Page_Up") {
++            FcitxKeySeq seq(binding.accept);
++            model->pgup_key.push_back(seq);
++        } else if (binding.action == "Page_Down") {
++            FcitxKeySeq seq(binding.accept);
++            model->pgdown_key.push_back(seq);
+         }
+     }
+-    fcitx_utils_free(accept);
+-    fcitx_utils_free(act_key);
+-    fcitx_utils_free(act_type);
+-    FcitxRimeEndKeyBinding(rime->default_conf);
+     model->sortKeys();
+     getAvailableSchemas();
+ }
+@@ -520,20 +460,14 @@ void ConfigMain::getAvailableSchemas() {
+         auto schema = FcitxRimeSchema();
+         schema.path = QString::fromLocal8Bit(f->name).prepend(absolute_path);
+         auto basefilename = QString::fromLocal8Bit(f->name).section(".", 0, 0);
+-        size_t buffer_size = 50;
+-        char *name = static_cast<char *>(fcitx_utils_malloc0(buffer_size));
+-        char *id = static_cast<char *>(fcitx_utils_malloc0(buffer_size));
+-        FcitxRimeGetSchemaAttr(rime, basefilename.toStdString().c_str(), name,
+-                               buffer_size, "schema/name");
+-        FcitxRimeGetSchemaAttr(rime, basefilename.toStdString().c_str(), id,
+-                               buffer_size, "schema/schema_id");
+-        schema.name = QString::fromLocal8Bit(name);
+-        schema.id = QString::fromLocal8Bit(id);
+-        schema.index =
+-            FcitxRimeCheckSchemaEnabled(rime, rime->default_conf, id);
+-        schema.active = (bool)schema.index;
+-        fcitx_utils_free(name);
+-        fcitx_utils_free(id);
++        auto name = config.schemaAttr(basefilename.toStdString().c_str(),
++                                      "schema/name");
++        auto id = config.schemaAttr(basefilename.toStdString().c_str(),
++                                    "schema/schema_id");
++        schema.name = QString::fromStdString(name);
++        schema.id = QString::fromStdString(id);
++        schema.index = config.schemaIndex(id.data());
++        schema.active = static_cast<bool>(schema.index);
+         model->schemas_.push_back(schema);
+     }
+     fcitx_utils_free_string_hash_set(files);
+diff --git a/gui/src/ConfigMain.h b/gui/src/ConfigMain.h
+index d5810f5..9e30507 100644
+--- a/gui/src/ConfigMain.h
++++ b/gui/src/ConfigMain.h
+@@ -21,8 +21,8 @@
+ #include <fcitxqtconfiguiwidget.h>
+ #include <fcitxqtkeysequencewidget.h>
+ 
+-#include "FcitxRimeConfig.h"
+ #include "Model.h"
++#include "RimeConfigParser.h"
+ #include "ui_ConfigMain.h"
+ 
+ namespace fcitx_rime {
+@@ -34,6 +34,7 @@ public:
+     ~ConfigMain();
+     void load() override;
+     void save() override;
++    bool asyncSave() override { return true; }
+ 
+     QString addon() override;
+     QString icon() override;
+@@ -48,8 +49,6 @@ public slots:
+     void activeIMSelectionChanged();
+ 
+ private:
+-    FcitxRime *rime;
+-    FcitxRimeConfigDataModel *model;
+     void setFcitxQtKeySeq(char *rime_key, FcitxKeySeq &keyseq);
+     void yamlToModel();
+     void uiToModel();
+@@ -61,8 +60,9 @@ private:
+     QList<FcitxQtKeySequenceWidget *> getKeyWidgetsFromLayout(QLayout *layout);
+     void setKeySeqFromLayout(QLayout *layout, QVector<FcitxKeySeq> &model_keys);
+     void setModelFromLayout(QVector<FcitxKeySeq> &model_keys, QLayout *layout);
+-    void setModelKeysToYaml(QVector<FcitxKeySeq> &model_keys, int type,
+-                            const char *key);
++
++    RimeConfigParser config;
++    RimeConfigDataModel *model;
+ };
+ } // namespace fcitx_rime
+ 
+diff --git a/gui/src/FcitxRimeConfig.cpp b/gui/src/FcitxRimeConfig.cpp
+deleted file mode 100644
+index bf8c36a..0000000
+--- a/gui/src/FcitxRimeConfig.cpp
++++ /dev/null
+@@ -1,285 +0,0 @@
+-//
+-// Copyright (C) 2018~2018 by xuzhao9 <i@xuzhao.net>
+-//
+-// This program is free software; you can redistribute it and/or modify
+-// it under the terms of the GNU General Public License as published by
+-// the Free Software Foundation; either version 2 of the License,
+-// or (at your option) any later version.
+-//
+-// This program is distributed in the hope that it will be useful,
+-// but WITHOUT ANY WARRANTY; without even the implied warranty of
+-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+-// General Public License for more details.
+-//
+-// You should have received a copy of the GNU General Public License
+-// along with this program; see the file COPYING. If not,
+-// see <http://www.gnu.org/licenses/>.
+-//
+-#include "FcitxRimeConfig.h"
+-#include <fcitx-config/xdg.h>
+-#include <fcitx-utils/utils.h>
+-
+-static RimeConfigIterator *global_iterator;
+-
+-FcitxRime *FcitxRimeConfigCreate() {
+-    FcitxRime *rime = (FcitxRime *)fcitx_utils_malloc0(sizeof(FcitxRime));
+-    rime->api = rime_get_api();
+-    rime->firstRun = True;
+-    rime->default_conf = NULL;
+-    if (!rime->api) {
+-        free(rime);
+-        return NULL;
+-    }
+-    return rime;
+-}
+-
+-void FcitxRimeConfigStart(FcitxRime *rime) {
+-    char *user_path = NULL;
+-    FILE *fp = FcitxXDGGetFileUserWithPrefix(fcitx_rime_dir_prefix,
+-                                             ".place_holder", "w", NULL);
+-    if (fp) {
+-        fclose(fp);
+-    }
+-    FcitxXDGGetFileUserWithPrefix(fcitx_rime_dir_prefix, "", NULL, &user_path);
+-    const char *shared_data_dir = fcitx_utils_get_fcitx_path_with_filename(
+-        "pkgdatadir", fcitx_rime_dir_prefix);
+-    RIME_STRUCT(RimeTraits, fcitx_rime_traits);
+-    fcitx_rime_traits.shared_data_dir = shared_data_dir;
+-    fcitx_rime_traits.app_name = "rime.fcitx-rime-config";
+-    fcitx_rime_traits.user_data_dir = user_path;
+-    fcitx_rime_traits.distribution_name = "Rime";
+-    fcitx_rime_traits.distribution_code_name = "fcitx-rime-config";
+-    fcitx_rime_traits.distribution_version = "0.0.2";
+-    if (rime->firstRun) {
+-        rime->api->setup(&fcitx_rime_traits);
+-        rime->firstRun = False;
+-    }
+-    rime->api->initialize(&fcitx_rime_traits);
+-}
+-
+-RimeConfig *FcitxRimeConfigOpenDefault(FcitxRime *rime) {
+-    RimeConfig *fcitx_rime_config_default =
+-        (RimeConfig *)fcitx_utils_malloc0(sizeof(RimeConfig));
+-    Bool suc = rime->api->config_open("default", fcitx_rime_config_default);
+-    if (!suc) {
+-        return NULL;
+-    }
+-    rime->default_conf = fcitx_rime_config_default;
+-    return fcitx_rime_config_default;
+-}
+-
+-void FcitxRimeConfigSetToggleKeys(FcitxRime *rime, RimeConfig *config,
+-                                  const char **keys, size_t keys_size) {
+-    RimeConfigClear(config, "switcher/hotkeys");
+-    RimeConfigCreateList(config, "switcher/hotkeys");
+-    RimeConfigIterator iterator;
+-    RimeConfigBeginList(&iterator, config, "switcher/hotkeys");
+-    RimeConfigNext(&iterator);
+-    for (size_t i = 0; i < keys_size; i++) {
+-        RimeConfigNext(&iterator);
+-        RimeConfigSetString(config, iterator.path, keys[i]);
+-    }
+-}
+-
+-size_t FcitxRimeConfigGetToggleKeySize(FcitxRime *rime, RimeConfig *config) {
+-    return RimeConfigListSize(config, "switcher/hotkeys");
+-}
+-
+-void FcitxRimeConfigGetToggleKeys(FcitxRime *rime, RimeConfig *config,
+-                                  char **keys, size_t keys_size) {
+-    size_t s = RimeConfigListSize(config, "switcher/hotkeys");
+-    RimeConfigIterator iterator;
+-    RimeConfigBeginList(&iterator, config, "switcher/hotkeys");
+-    for (size_t i = 0; i < s; i++) {
+-        RimeConfigNext(&iterator);
+-        if (i >= keys_size) {
+-            RimeConfigEnd(&iterator);
+-            break;
+-        } else {
+-            char *mem = (char *)fcitx_utils_malloc0(30);
+-            RimeConfigGetString(config, iterator.path, mem, 30);
+-            keys[i] = mem;
+-        }
+-    }
+-}
+-
+-void FcitxRimeBeginKeyBinding(RimeConfig *config) {
+-    global_iterator =
+-        (RimeConfigIterator *)fcitx_utils_malloc0(sizeof(RimeConfigIterator));
+-    RimeConfigBeginList(global_iterator, config, "key_binder/bindings");
+-}
+-
+-size_t FcitxRimeConfigGetKeyBindingSize(RimeConfig *config) {
+-    return RimeConfigListSize(config, "key_binder/bindings");
+-}
+-
+-void FcitxRimeEndKeyBinding(RimeConfig *config) {
+-    fcitx_utils_free(global_iterator);
+-}
+-
+-void FcitxRimeConfigGetNextKeyBinding(RimeConfig *config, char *act_type,
+-                                      char *act_key, char *accept,
+-                                      size_t buffer_size) {
+-    RimeConfigNext(global_iterator);
+-    RimeConfig map;
+-    memset(&map, 0, sizeof(RimeConfig));
+-    RimeConfigGetItem(config, global_iterator->path, &map);
+-
+-    char *accept_try = (char *)fcitx_utils_malloc0(buffer_size * sizeof(char));
+-    memset(accept_try, 0, buffer_size * sizeof(char));
+-    RimeConfigGetString(&map, "accept", accept_try, buffer_size);
+-
+-    char *send_try = (char *)fcitx_utils_malloc0(buffer_size * sizeof(char));
+-    memset(send_try, 0, buffer_size * sizeof(char));
+-    RimeConfigGetString(&map, "send", send_try, buffer_size);
+-
+-    char *toggle_try = (char *)fcitx_utils_malloc0(buffer_size * sizeof(char));
+-    memset(toggle_try, 0, buffer_size * sizeof(char));
+-    RimeConfigGetString(&map, "toggle", toggle_try, buffer_size);
+-
+-    if (strlen(send_try) != 0) {
+-        strncpy(act_type, "send", buffer_size);
+-        strncpy(act_key, send_try, buffer_size);
+-    } else if (strlen(toggle_try) != 0) {
+-        strncpy(act_type, "toggle", buffer_size);
+-        strncpy(act_key, toggle_try, buffer_size);
+-    }
+-
+-    strncpy(accept, accept_try, buffer_size);
+-
+-    fcitx_utils_free(accept_try);
+-    fcitx_utils_free(send_try);
+-    fcitx_utils_free(toggle_try);
+-}
+-
+-// type: 0: toggle, 1: send
+-// key: value of the act_type, Page_Up, Page_Down, etc
+-// value: shortcut
+-void FcitxRimeConfigSetKeyBindingSet(RimeConfig *config, int type,
+-                                     const char *key, const char **shortcuts,
+-                                     size_t shortcut_size) {
+-    RimeConfigIterator iter;
+-    size_t total_sz = RimeConfigListSize(config, "key_binder/bindings");
+-    RimeConfigBeginList(&iter, config, "key_binder/bindings");
+-    size_t ptr = 0;
+-    for (size_t i = 0; i < total_sz; i++) {
+-        RimeConfigNext(&iter);
+-        RimeConfig map;
+-        memset(&map, 0, sizeof(RimeConfig));
+-        RimeConfigGetItem(config, iter.path, &map);
+-        size_t buffer_sz = 20;
+-        char *key_try = (char *)fcitx_utils_malloc0(buffer_sz * sizeof(char));
+-        if (type == 0) { // "toggle"
+-            RimeConfigGetString(&map, "toggle", key_try, buffer_sz);
+-            if (strcmp(key_try, key) == 0) { // matches!
+-                if (ptr < shortcut_size) {
+-                    RimeConfigSetString(&map, "accept", shortcuts[ptr++]);
+-                } else { // set the rest to ""
+-                    RimeConfigSetString(&map, "accept", "");
+-                }
+-            }
+-        } else if (type == 1) { // "send"
+-            RimeConfigGetString(&map, "send", key_try, buffer_sz);
+-            if (strcmp(key_try, key) == 0) { // matches!
+-                if (ptr < shortcut_size) {
+-                    RimeConfigSetString(&map, "accept", shortcuts[ptr++]);
+-                } else { // set the rest to ""
+-                    RimeConfigSetString(&map, "accept", "");
+-                }
+-            }
+-        }
+-        fcitx_utils_free(key_try);
+-    }
+-}
+-
+-void FcitxRimeConfigSetKeyBinding(RimeConfig *config, const char *act_type,
+-                                  const char *act_key, const char *value,
+-                                  size_t index) {
+-    RimeConfigIterator iter;
+-    size_t sz = RimeConfigListSize(config, "key_binder/bindings");
+-    size_t j = 0;
+-    RimeConfigBeginList(&iter, config, "key_binder/bindings");
+-    for (size_t i = 0; i < sz; i++) {
+-        RimeConfigNext(&iter);
+-        RimeConfig map;
+-        memset(&map, 0, sizeof(RimeConfig));
+-        RimeConfigGetItem(config, iter.path, &map);
+-        size_t buffer_size = 50;
+-        char *act_key_try =
+-            (char *)fcitx_utils_malloc0(buffer_size * sizeof(char));
+-        RimeConfigGetString(&map, act_type, act_key_try, buffer_size);
+-        if (strcmp(act_key_try, act_key) == 0) {
+-            if (j == index) { // we found the index-th keyboard shortcut
+-                RimeConfigSetString(&map, "accept", value);
+-            } else if (j > index) {
+-                RimeConfigSetString(&map, "accept", "");
+-            }
+-            j += 1;
+-        }
+-        fcitx_utils_free(act_key_try);
+-    }
+-}
+-
+-void FcitxRimeDestroy(FcitxRime *rime) {
+-    RimeConfigClose(rime->default_conf);
+-    rime->api->finalize();
+-    fcitx_utils_free(rime);
+-}
+-
+-// Write into config file and restart rime
+-void FcitxRimeConfigSync(FcitxRime *rime) {
+-    RimeStartMaintenanceOnWorkspaceChange();
+-    RimeConfigClose(rime->default_conf);
+-    rime->api->finalize();
+-    FcitxRimeConfigStart(rime);
+-    FcitxRimeConfigOpenDefault(rime);
+-}
+-
+-void FcitxRimeGetSchemaAttr(FcitxRime *rime, const char *schema_id, char *name,
+-                            size_t buffer_size, const char *attr) {
+-    RimeConfig rime_schema_config;
+-    memset(&rime_schema_config, 0, sizeof(RimeConfig));
+-    RimeSchemaOpen(schema_id, &rime_schema_config);
+-    RimeConfigGetString(&rime_schema_config, attr, name, buffer_size);
+-    RimeConfigClose(&rime_schema_config);
+-}
+-
+-// reset active schema list to nothing
+-void FcitxRimeClearAndSetSchemaList(FcitxRime *rime, RimeConfig *config,
+-                                    char **schema_names, size_t count) {
+-    RimeConfigClear(config, "schema_list");
+-    RimeConfigCreateList(config, "schema_list");
+-    RimeConfigIterator iterator;
+-    RimeConfigBeginList(&iterator, config, "schema_list");
+-    RimeConfigNext(&iterator);
+-    for (size_t i = 0; i < count; i++) {
+-        RimeConfigNext(&iterator);
+-        RimeConfigCreateMap(config, iterator.path);
+-        RimeConfig map;
+-        memset(&map, 0, sizeof(RimeConfig));
+-        RimeConfigGetItem(config, iterator.path, &map);
+-        RimeConfigSetString(&map, "schema", schema_names[i]);
+-    }
+-    return;
+-}
+-
+-int FcitxRimeCheckSchemaEnabled(FcitxRime *rime, RimeConfig *config,
+-                                const char *schema_id) {
+-    size_t s = RimeConfigListSize(config, "schema_list");
+-    RimeConfigIterator iterator;
+-    RimeConfigBeginList(&iterator, config, "schema_list");
+-    int result = 0;
+-    for (size_t i = 0; i < s; i++) {
+-        RimeConfigNext(&iterator);
+-        RimeConfig map;
+-        memset(&map, 0, sizeof(RimeConfig));
+-        RimeConfigGetItem(config, iterator.path, &map);
+-        size_t buffer_size = 50;
+-        char *s = (char *)fcitx_utils_malloc0(buffer_size * sizeof(char));
+-        RimeConfigGetString(&map, "schema", s, buffer_size);
+-        if (strcmp(s, schema_id) == 0) { /* This schema is enabled in default*/
+-            result = (i + 1);
+-        }
+-    }
+-    return result;
+-}
+diff --git a/gui/src/FcitxRimeConfig.h b/gui/src/FcitxRimeConfig.h
+deleted file mode 100644
+index 268e40d..0000000
+--- a/gui/src/FcitxRimeConfig.h
++++ /dev/null
+@@ -1,66 +0,0 @@
+-//
+-// Copyright (C) 2018~2018 by xuzhao9 <i@xuzhao.net>
+-//
+-// This program is free software; you can redistribute it and/or modify
+-// it under the terms of the GNU General Public License as published by
+-// the Free Software Foundation; either version 2 of the License,
+-// or (at your option) any later version.
+-//
+-// This program is distributed in the hope that it will be useful,
+-// but WITHOUT ANY WARRANTY; without even the implied warranty of
+-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+-// General Public License for more details.
+-//
+-// You should have received a copy of the GNU General Public License
+-// along with this program; see the file COPYING. If not,
+-// see <http://www.gnu.org/licenses/>.
+-//
+-#ifndef FCITX_RIME_CONFIG_H
+-#define FCITX_RIME_CONFIG_H
+-
+-#include <rime_api.h>
+-
+-static constexpr const char *fcitx_rime_dir_prefix = "rime";
+-static constexpr const char *fcitx_rime_schema_suffix = ".schema.yaml";
+-
+-typedef struct _FcitxRime {
+-    RimeApi *api;
+-    RimeConfig *default_conf;
+-    RimeConfig *custom_conf;
+-    Bool firstRun;
+-} FcitxRime;
+-
+-// open and start, sync and close
+-FcitxRime *FcitxRimeConfigCreate();
+-void FcitxRimeConfigStart(FcitxRime *rime);
+-RimeConfig *FcitxRimeConfigOpenDefault(FcitxRime *rime);
+-void FcitxRimeConfigSync(FcitxRime *rime);
+-void FcitxRimeDestroy(FcitxRime *rime);
+-// toggle
+-size_t FcitxRimeConfigGetToggleKeySize(FcitxRime *rime, RimeConfig *config);
+-void FcitxRimeConfigGetToggleKeys(FcitxRime *rime, RimeConfig *config,
+-                                  char **keys, size_t keys_size);
+-void FcitxRimeConfigSetToggleKeys(FcitxRime *rime, RimeConfig *config,
+-                                  const char **keys, size_t keys_size);
+-// other bindings
+-void FcitxRimeBeginKeyBinding(RimeConfig *config);
+-size_t FcitxRimeConfigGetKeyBindingSize(RimeConfig *config);
+-void FcitxRimeConfigGetNextKeyBinding(RimeConfig *config, char *act_type,
+-                                      char *act_key, char *accept,
+-                                      size_t buffer_size);
+-void FcitxRimeEndKeyBinding(RimeConfig *config);
+-void FcitxRimeConfigSetKeyBinding(RimeConfig *config, const char *act_type,
+-                                  const char *act_key, const char *value,
+-                                  size_t index);
+-void FcitxRimeConfigSetKeyBindingSet(RimeConfig *config, int type,
+-                                     const char *key, const char **shortcuts,
+-                                     size_t shortcut_size);
+-// schemas
+-void FcitxRimeGetSchemaAttr(FcitxRime *rime, const char *schema_id, char *name,
+-                            size_t buffer_size, const char *attr);
+-int FcitxRimeCheckSchemaEnabled(FcitxRime *rime, RimeConfig *config,
+-                                const char *schema_id);
+-void FcitxRimeClearAndSetSchemaList(FcitxRime *rime, RimeConfig *config,
+-                                    char **schema_names, size_t count);
+-
+-#endif // FCITX_RIME_CONFIG_H
+diff --git a/gui/src/Main.cpp b/gui/src/Main.cpp
+index fc7d475..e536edc 100644
+--- a/gui/src/Main.cpp
++++ b/gui/src/Main.cpp
+@@ -22,19 +22,19 @@
+ #include "Main.h"
+ 
+ // FcitxQtConfigUIPlugin : QObject, FcitxQtConfigUIFactoryInterface
+-FcitxRimeConfigTool::FcitxRimeConfigTool(QObject *parent)
++RimeConfigParserTool::RimeConfigParserTool(QObject *parent)
+     : FcitxQtConfigUIPlugin(parent) {
+     if (parent == NULL) {
+     }
+ }
+ 
+-FcitxQtConfigUIWidget *FcitxRimeConfigTool::create(const QString &key) {
++FcitxQtConfigUIWidget *RimeConfigParserTool::create(const QString &key) {
+     Q_UNUSED(key);
+     return new fcitx_rime::ConfigMain;
+ }
+ 
+-QString FcitxRimeConfigTool::name() { return "rime-config-gui-tool"; }
++QString RimeConfigParserTool::name() { return "rime-config-gui-tool"; }
+ 
+-QStringList FcitxRimeConfigTool::files() { return QStringList("rime/config"); }
++QStringList RimeConfigParserTool::files() { return QStringList("rime/config"); }
+ 
+-QString FcitxRimeConfigTool::domain() { return "fcitx_rime"; }
++QString RimeConfigParserTool::domain() { return "fcitx_rime"; }
+diff --git a/gui/src/Main.h b/gui/src/Main.h
+index 7cf0722..f376b88 100644
+--- a/gui/src/Main.h
++++ b/gui/src/Main.h
+@@ -20,12 +20,12 @@
+ 
+ #include <fcitxqtconfiguiplugin.h>
+ 
+-class FcitxRimeConfigTool : public FcitxQtConfigUIPlugin {
++class RimeConfigParserTool : public FcitxQtConfigUIPlugin {
+     Q_OBJECT
+ public:
+     Q_PLUGIN_METADATA(IID "FcitxQtConfigUIFactoryInterface_iid" FILE
+                           "fcitx-rime-config.json")
+-    explicit FcitxRimeConfigTool(QObject *parent = 0);
++    explicit RimeConfigParserTool(QObject *parent = 0);
+     QString name() override;
+     QStringList files() override;
+     QString domain() override;
+diff --git a/gui/src/Model.cpp b/gui/src/Model.cpp
+index bbd62dd..69c567d 100644
+--- a/gui/src/Model.cpp
++++ b/gui/src/Model.cpp
+@@ -23,7 +23,7 @@
+ #include <iostream>
+ 
+ namespace fcitx_rime {
+-void FcitxRimeConfigDataModel::sortSchemas() {
++void RimeConfigDataModel::sortSchemas() {
+     std::sort(schemas_.begin(), schemas_.end(),
+               [](const FcitxRimeSchema &a, const FcitxRimeSchema &b) -> bool {
+                   // if both inactive, sort by id
+@@ -40,7 +40,7 @@ void FcitxRimeConfigDataModel::sortSchemas() {
+               });
+ }
+ 
+-void FcitxRimeConfigDataModel::sortKeys() {
++void RimeConfigDataModel::sortKeys() {
+     sortSingleKeySet(toggle_keys);
+     sortSingleKeySet(ascii_key);
+     sortSingleKeySet(trasim_key);
+@@ -49,7 +49,7 @@ void FcitxRimeConfigDataModel::sortKeys() {
+     sortSingleKeySet(pgdown_key);
+ }
+ 
+-void FcitxRimeConfigDataModel::sortSingleKeySet(QVector<FcitxKeySeq> &keys) {
++void RimeConfigDataModel::sortSingleKeySet(QVector<FcitxKeySeq> &keys) {
+     std::sort(keys.begin(), keys.end(),
+               [](const FcitxKeySeq &a, const FcitxKeySeq &b) -> bool {
+                   auto qa = QKeySequence(FcitxQtKeySequenceWidget::keyFcitxToQt(
+diff --git a/gui/src/Model.h b/gui/src/Model.h
+index 355760b..dad6ee1 100644
+--- a/gui/src/Model.h
++++ b/gui/src/Model.h
+@@ -37,6 +37,7 @@ public:
+     KeySym sym_;
+     FcitxKeySeq();
+     FcitxKeySeq(const char *keyseq);
++    FcitxKeySeq(const std::string &keyseq) : FcitxKeySeq(keyseq.data()) {}
+     FcitxKeySeq(const QKeySequence qkey);
+     std::string toString() const;
+     std::string keySymToString(KeySym sym) const;
+@@ -52,7 +53,7 @@ public:
+     bool active;
+ };
+ 
+-class FcitxRimeConfigDataModel {
++class RimeConfigDataModel {
+ public:
+     QVector<FcitxKeySeq> toggle_keys;
+     QVector<FcitxKeySeq> ascii_key;
+diff --git a/gui/src/RimeConfigParser.cpp b/gui/src/RimeConfigParser.cpp
+new file mode 100644
+index 0000000..1629a55
+--- /dev/null
++++ b/gui/src/RimeConfigParser.cpp
+@@ -0,0 +1,289 @@
++//
++// Copyright (C) 2018~2018 by xuzhao9 <i@xuzhao.net>
++// Copyright (C) 2018~2018 by Weng Xuetian <wengxt@gmail.com>
++//
++// This program is free software; you can redistribute it and/or modify
++// it under the terms of the GNU General Public License as published by
++// the Free Software Foundation; either version 2 of the License,
++// or (at your option) any later version.
++//
++// This program is distributed in the hope that it will be useful,
++// but WITHOUT ANY WARRANTY; without even the implied warranty of
++// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
++// General Public License for more details.
++//
++// You should have received a copy of the GNU General Public License
++// along with this program; see the file COPYING. If not,
++// see <http://www.gnu.org/licenses/>.
++//
++#include "RimeConfigParser.h"
++#include <fcitx-config/xdg.h>
++#include <fcitx-utils/utils.h>
++
++namespace fcitx_rime {
++
++class RimeConfigCleanUp {
++public:
++    RimeConfigCleanUp(RimeConfig *config) : config_(config) {}
++    ~RimeConfigCleanUp() { RimeConfigClose(config_); }
++
++private:
++    RimeConfig *config_;
++};
++
++RimeConfigParser::RimeConfigParser() : api(rime_get_api()) {
++    memset(&default_conf, 0, sizeof(default_conf));
++    start(true);
++}
++
++RimeConfigParser::~RimeConfigParser() { finalize(); }
++
++void RimeConfigParser::start(bool firstRun) {
++    char *user_path = NULL;
++    FILE *fp = FcitxXDGGetFileUserWithPrefix(fcitx_rime_dir_prefix,
++                                             ".place_holder", "w", NULL);
++    if (fp) {
++        fclose(fp);
++    }
++    FcitxXDGGetFileUserWithPrefix(fcitx_rime_dir_prefix, "", nullptr,
++                                  &user_path);
++
++    RIME_STRUCT(RimeTraits, fcitx_rime_traits);
++    fcitx_rime_traits.shared_data_dir = RIME_DATA_DIR;
++    fcitx_rime_traits.app_name = "rime.fcitx-rime-config";
++    fcitx_rime_traits.user_data_dir = user_path;
++    fcitx_rime_traits.distribution_name = "Rime";
++    fcitx_rime_traits.distribution_code_name = "fcitx-rime-config";
++    fcitx_rime_traits.distribution_version = "0.0.2";
++    if (firstRun) {
++        api->setup(&fcitx_rime_traits);
++    }
++    api->initialize(&fcitx_rime_traits);
++    api->config_open("default", &default_conf);
++
++    free(user_path);
++}
++
++void RimeConfigParser::setToggleKeys(const std::vector<std::string> &keys) {
++    RimeConfigClear(&default_conf, "switcher/hotkeys");
++    RimeConfigCreateList(&default_conf, "switcher/hotkeys");
++    RimeConfigIterator iterator;
++    RimeConfigBeginList(&iterator, &default_conf, "switcher/hotkeys");
++    RimeConfigNext(&iterator);
++    for (size_t i = 0; i < keys.size(); i++) {
++        RimeConfigNext(&iterator);
++        RimeConfigSetString(&default_conf, iterator.path, keys[i].data());
++    }
++    RimeConfigEnd(&iterator);
++}
++
++std::vector<std::string> RimeConfigParser::toggleKeys() {
++    std::vector<std::string> result;
++    listForeach(&default_conf, "switcher/hotkeys",
++                [&result](RimeConfig *config, const char *path) {
++                    auto str = RimeConfigGetCString(config, path);
++                    if (str) {
++                        result.push_back(str);
++                    }
++                    return true;
++                });
++    return result;
++}
++
++const char *keyBindingConditionToString(KeybindingCondition condition) {
++    switch (condition) {
++    case KeybindingCondition::Composing:
++        return "composing";
++    case KeybindingCondition::HasMenu:
++        return "has_menu";
++    case KeybindingCondition::Always:
++        return "always";
++    case KeybindingCondition::Paging:
++        return "paging";
++    }
++    return "";
++}
++
++KeybindingCondition keyBindingConditionFromString(const char *str) {
++    if (strcmp(str, "composing") == 0) {
++        return KeybindingCondition::Composing;
++    } else if (strcmp(str, "has_menu") == 0) {
++        return KeybindingCondition::HasMenu;
++    } else if (strcmp(str, "paging") == 0) {
++        return KeybindingCondition::Paging;
++    } else if (strcmp(str, "always") == 0) {
++        return KeybindingCondition::Always;
++    }
++    return KeybindingCondition::Composing;
++}
++
++const char *keybindingTypeToString(KeybindingType type) {
++    switch (type) {
++    case KeybindingType::Send:
++        return "send";
++    case KeybindingType::Select:
++        return "select";
++    case KeybindingType::Toggle:
++        return "toggle";
++    }
++    return "";
++}
++
++void RimeConfigParser::setKeybindings(const std::vector<Keybinding> &bindings) {
++    RimeConfigClear(&default_conf, "key_binder/bindings");
++    RimeConfigCreateList(&default_conf, "key_binder/bindings");
++    RimeConfigIterator iterator;
++    RimeConfigBeginList(&iterator, &default_conf, "key_binder/bindings");
++    RimeConfigNext(&iterator);
++    for (const auto &binding : bindings) {
++        RimeConfigNext(&iterator);
++        RimeConfigCreateMap(&default_conf, iterator.path);
++        RimeConfig map;
++        memset(&map, 0, sizeof(RimeConfig));
++        RimeConfigCleanUp cleanUp(&map);
++        RimeConfigGetItem(&default_conf, iterator.path, &map);
++        RimeConfigSetString(&map, "when",
++                            keyBindingConditionToString(binding.when));
++        RimeConfigSetString(&map, "accept", binding.accept.data());
++        RimeConfigSetString(&map, keybindingTypeToString(binding.type),
++                            binding.action.data());
++    }
++    RimeConfigEnd(&iterator);
++}
++
++void RimeConfigParser::setInteger(const char *key, int i) {
++    RimeConfigSetInt(&default_conf, key, i);
++}
++
++bool RimeConfigParser::readInteger(const char *key, int *i) {
++    return RimeConfigGetInt(&default_conf, key, i);
++}
++
++std::vector<Keybinding> RimeConfigParser::keybindings() {
++    std::vector<Keybinding> result;
++    listForeach(&default_conf, "key_binder/bindings",
++                [&result](RimeConfig *config, const char *path) {
++                    RimeConfig map;
++                    memset(&map, 0, sizeof(RimeConfig));
++                    RimeConfigCleanUp cleanUp(&map);
++                    RimeConfigGetItem(config, path, &map);
++                    auto when = RimeConfigGetCString(&map, "when");
++                    if (!when) {
++                        return false;
++                    }
++                    Keybinding binding;
++                    binding.when = keyBindingConditionFromString(when);
++                    auto accept = RimeConfigGetCString(&map, "accept");
++                    if (!accept) {
++                        return false;
++                    }
++                    binding.accept = accept;
++                    auto action = RimeConfigGetCString(&map, "send");
++                    if (action) {
++                        binding.type = KeybindingType::Send;
++                    } else {
++                        action = RimeConfigGetCString(&map, "toggle");
++                    }
++                    if (action) {
++                        binding.type = KeybindingType::Toggle;
++                    } else {
++                        action = RimeConfigGetCString(&map, "select");
++                        binding.type = KeybindingType::Select;
++                    }
++                    if (!action) {
++                        return false;
++                    }
++                    result.push_back(std::move(binding));
++                    return true;
++                });
++    return result;
++}
++
++void RimeConfigParser::listForeach(
++    RimeConfig *config, const char *key,
++    std::function<bool(RimeConfig *, const char *)> callback) {
++    size_t size = RimeConfigListSize(config, key);
++
++    if (!size) {
++        return;
++    }
++
++    RimeConfigIterator iterator;
++    RimeConfigBeginList(&iterator, config, key);
++    for (auto i = 0; i < size; i++) {
++        RimeConfigNext(&iterator);
++        if (!callback(config, iterator.path)) {
++            break;
++        }
++    }
++    RimeConfigEnd(&iterator);
++}
++
++void RimeConfigParser::finalize() {
++    RimeConfigClose(&default_conf);
++    memset(&default_conf, 0, sizeof(default_conf));
++    api->finalize();
++}
++
++void RimeConfigParser::sync() {
++    RimeStartMaintenanceOnWorkspaceChange();
++    finalize();
++    start();
++}
++
++std::string RimeConfigParser::schemaAttr(const char *schema_id,
++                                         const char *attr) {
++    RimeConfig rime_schema_config;
++    memset(&rime_schema_config, 0, sizeof(RimeConfig));
++    RimeSchemaOpen(schema_id, &rime_schema_config);
++    RimeConfigCleanUp cleanUp(&rime_schema_config);
++    auto str = RimeConfigGetCString(&rime_schema_config, attr);
++    std::string result;
++    if (str) {
++        result = str;
++    }
++    return result;
++}
++
++// reset active schema list to nothing
++void RimeConfigParser::setSchemas(const std::vector<std::string> &schemas) {
++    RimeConfigClear(&default_conf, "schema_list");
++    RimeConfigCreateList(&default_conf, "schema_list");
++    RimeConfigIterator iterator;
++    RimeConfigBeginList(&iterator, &default_conf, "schema_list");
++    RimeConfigNext(&iterator);
++    for (const auto &schema : schemas) {
++        RimeConfigNext(&iterator);
++        RimeConfigCreateMap(&default_conf, iterator.path);
++        RimeConfig map;
++        memset(&map, 0, sizeof(RimeConfig));
++        RimeConfigCleanUp cleanUp(&map);
++        RimeConfigGetItem(&default_conf, iterator.path, &map);
++        RimeConfigSetString(&map, "schema", schema.data());
++    }
++    RimeConfigEnd(&iterator);
++    return;
++}
++
++int RimeConfigParser::schemaIndex(const char *schema_id) {
++    int idx = 0;
++    listForeach(&default_conf, "schema_list",
++                [&idx, schema_id](RimeConfig *config, const char *path) {
++                    RimeConfig map;
++                    memset(&map, 0, sizeof(RimeConfig));
++                    RimeConfigCleanUp cleanUp(&map);
++                    RimeConfigGetItem(config, path, &map);
++                    auto schema = RimeConfigGetCString(&map, "schema");
++                    if (schema &&
++                        strcmp(schema, schema_id) ==
++                            0) { /* This schema is enabled in default*/
++                        return false;
++                    }
++                    idx++;
++                    return true;
++                });
++
++    return idx + 1;
++}
++
++} // namespace fcitx_rime
+diff --git a/gui/src/RimeConfigParser.h b/gui/src/RimeConfigParser.h
+new file mode 100644
+index 0000000..b2cfa35
+--- /dev/null
++++ b/gui/src/RimeConfigParser.h
+@@ -0,0 +1,84 @@
++//
++// Copyright (C) 2018~2018 by xuzhao9 <i@xuzhao.net>
++// Copyright (C) 2018~2018 by Weng Xuetian <wengxt@gmail.com>
++//
++// This program is free software; you can redistribute it and/or modify
++// it under the terms of the GNU General Public License as published by
++// the Free Software Foundation; either version 2 of the License,
++// or (at your option) any later version.
++//
++// This program is distributed in the hope that it will be useful,
++// but WITHOUT ANY WARRANTY; without even the implied warranty of
++// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
++// General Public License for more details.
++//
++// You should have received a copy of the GNU General Public License
++// along with this program; see the file COPYING. If not,
++// see <http://www.gnu.org/licenses/>.
++//
++#ifndef FCITX_RIME_CONFIG_H
++#define FCITX_RIME_CONFIG_H
++
++#include <functional>
++#include <rime_api.h>
++#include <string>
++#include <vector>
++
++static constexpr const char *fcitx_rime_dir_prefix = "rime";
++static constexpr const char *fcitx_rime_schema_suffix = ".schema.yaml";
++
++namespace fcitx_rime {
++
++enum class KeybindingCondition {
++    Composing,
++    HasMenu,
++    Paging,
++    Always,
++};
++
++enum class KeybindingType {
++    Send,
++    Toggle,
++    Select,
++};
++
++struct Keybinding {
++    KeybindingCondition when;
++    std::string accept;
++    KeybindingType type;
++    std::string action;
++};
++
++class RimeConfigParser {
++public:
++    RimeConfigParser();
++    ~RimeConfigParser();
++
++    void sync();
++    void setToggleKeys(const std::vector<std::string> &keys);
++    std::vector<std::string> toggleKeys();
++
++    void setKeybindings(const std::vector<Keybinding> &bindings);
++    std::vector<Keybinding> keybindings();
++
++    void setInteger(const char *key, int i);
++    bool readInteger(const char *key, int *i);
++
++    std::string schemaAttr(const char *schema_id, const char *attr);
++    void setSchemas(const std::vector<std::string> &schemas);
++    int schemaIndex(const char *schema);
++
++private:
++    void start(bool firstRun = false);
++    void finalize();
++    static void
++    listForeach(RimeConfig *config, const char *key,
++                std::function<bool(RimeConfig *config, const char *path)>);
++
++    RimeApi *api;
++    RimeConfig default_conf;
++};
++
++} // namespace fcitx_rime
++
++#endif // FCITX_RIME_CONFIG_H
+diff --git a/src/fcitx-rime.c b/src/fcitx-rime.c
+index 906bd81..aab324e 100644
+--- a/src/fcitx-rime.c
++++ b/src/fcitx-rime.c
+@@ -97,6 +97,7 @@ static void FcitxRimeStart(FcitxRime* rime, boolean fullcheck) {
+     rime->api->start_maintenance(fullcheck);
+ 
+     rime->session_id = rime->api->create_session();
++    free(user_path);
+ }
+ 
+ static void* FcitxRimeCreate(FcitxInstance* instance)

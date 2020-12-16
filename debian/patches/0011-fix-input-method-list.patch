@@ -1,0 +1,165 @@
+From: Weng Xuetian <wengxt@gmail.com>
+Date: Wed, 30 May 2018 15:58:33 -0700
+Subject: fix input method list
+
+Applied-Upstream: commit:0bd143321ceb634a378fb1595e047f74a0be1b96
+---
+ gui/src/ConfigMain.cpp       | 47 +++++++++++++++++++++++++++++++++-----------
+ gui/src/RimeConfigParser.cpp | 41 ++++++++++++++++++++------------------
+ gui/src/RimeConfigParser.h   |  2 +-
+ 3 files changed, 58 insertions(+), 32 deletions(-)
+
+diff --git a/gui/src/ConfigMain.cpp b/gui/src/ConfigMain.cpp
+index dc4b631..9e2c67b 100644
+--- a/gui/src/ConfigMain.cpp
++++ b/gui/src/ConfigMain.cpp
+@@ -20,6 +20,7 @@
+ #include "Common.h"
+ #include "ConfigMain.h"
+ #include <QDialogButtonBox>
++#include <QDir>
+ #include <QFutureWatcher>
+ #include <QListWidgetItem>
+ #include <QStandardItemModel>
+@@ -452,25 +453,47 @@ void ConfigMain::yamlToModel() {
+ }
+ 
+ void ConfigMain::getAvailableSchemas() {
+-    const char *absolute_path = RimeGetUserDataDir();
+-    FcitxStringHashSet *files =
+-        FcitxXDGGetFiles(fcitx_rime_dir_prefix, NULL, fcitx_rime_schema_suffix);
+-    HASH_SORT(files, fcitx_utils_string_hash_set_compare);
+-    HASH_FOREACH(f, files, FcitxStringHashSet) {
++    const char *userPath = RimeGetUserDataDir();
++    const char *sysPath = RimeGetSharedDataDir();
++
++    QSet<QString> files;
++    for (auto path : {sysPath, userPath}) {
++        if (!path) {
++            continue;
++        }
++        QDir dir(path);
++        files.unite(QSet<QString>::fromList(dir.entryList(
++            QStringList("*.schema.yaml"), QDir::Files | QDir::Readable)));
++    }
++
++    auto filesList = files.toList();
++    filesList.sort();
++
++    for (const auto &file : filesList) {
+         auto schema = FcitxRimeSchema();
+-        schema.path = QString::fromLocal8Bit(f->name).prepend(absolute_path);
+-        auto basefilename = QString::fromLocal8Bit(f->name).section(".", 0, 0);
+-        auto name = config.schemaAttr(basefilename.toStdString().c_str(),
+-                                      "schema/name");
+-        auto id = config.schemaAttr(basefilename.toStdString().c_str(),
+-                                    "schema/schema_id");
++        QString fullPath;
++        for (auto path : {userPath, sysPath}) {
++            QDir dir(path);
++            if (dir.exists(file)) {
++                fullPath = dir.filePath(file);
++                break;
++            }
++        }
++        schema.path = fullPath;
++        QFile fd(fullPath);
++        if (!fd.open(QIODevice::ReadOnly)) {
++            continue;
++        }
++        auto yamlData = fd.readAll();
++        auto name = config.stringFromYAML(yamlData.constData(), "schema/name");
++        auto id =
++            config.stringFromYAML(yamlData.constData(), "schema/schema_id");
+         schema.name = QString::fromStdString(name);
+         schema.id = QString::fromStdString(id);
+         schema.index = config.schemaIndex(id.data());
+         schema.active = static_cast<bool>(schema.index);
+         model->schemas_.push_back(schema);
+     }
+-    fcitx_utils_free_string_hash_set(files);
+     model->sortSchemas();
+ }
+ 
+diff --git a/gui/src/RimeConfigParser.cpp b/gui/src/RimeConfigParser.cpp
+index 1629a55..06fd206 100644
+--- a/gui/src/RimeConfigParser.cpp
++++ b/gui/src/RimeConfigParser.cpp
+@@ -17,6 +17,7 @@
+ // see <http://www.gnu.org/licenses/>.
+ //
+ #include "RimeConfigParser.h"
++#include <QDebug>
+ #include <fcitx-config/xdg.h>
+ #include <fcitx-utils/utils.h>
+ 
+@@ -231,11 +232,11 @@ void RimeConfigParser::sync() {
+     start();
+ }
+ 
+-std::string RimeConfigParser::schemaAttr(const char *schema_id,
+-                                         const char *attr) {
++std::string RimeConfigParser::stringFromYAML(const char *yaml,
++                                             const char *attr) {
+     RimeConfig rime_schema_config;
+     memset(&rime_schema_config, 0, sizeof(RimeConfig));
+-    RimeSchemaOpen(schema_id, &rime_schema_config);
++    RimeConfigLoadString(&rime_schema_config, yaml);
+     RimeConfigCleanUp cleanUp(&rime_schema_config);
+     auto str = RimeConfigGetCString(&rime_schema_config, attr);
+     std::string result;
+@@ -267,23 +268,25 @@ void RimeConfigParser::setSchemas(const std::vector<std::string> &schemas) {
+ 
+ int RimeConfigParser::schemaIndex(const char *schema_id) {
+     int idx = 0;
+-    listForeach(&default_conf, "schema_list",
+-                [&idx, schema_id](RimeConfig *config, const char *path) {
+-                    RimeConfig map;
+-                    memset(&map, 0, sizeof(RimeConfig));
+-                    RimeConfigCleanUp cleanUp(&map);
+-                    RimeConfigGetItem(config, path, &map);
+-                    auto schema = RimeConfigGetCString(&map, "schema");
+-                    if (schema &&
+-                        strcmp(schema, schema_id) ==
+-                            0) { /* This schema is enabled in default*/
+-                        return false;
+-                    }
+-                    idx++;
+-                    return true;
+-                });
++    bool found = false;
++    listForeach(
++        &default_conf, "schema_list",
++        [&idx, &found, schema_id](RimeConfig *config, const char *path) {
++            RimeConfig map;
++            memset(&map, 0, sizeof(RimeConfig));
++            RimeConfigCleanUp cleanUp(&map);
++            RimeConfigGetItem(config, path, &map);
++            auto schema = RimeConfigGetCString(&map, "schema");
++            /* This schema is enabled in default*/
++            if (schema && strcmp(schema, schema_id) == 0) {
++                found = true;
++                return false;
++            }
++            idx++;
++            return true;
++        });
+ 
+-    return idx + 1;
++    return found ? (idx + 1) : 0;
+ }
+ 
+ } // namespace fcitx_rime
+diff --git a/gui/src/RimeConfigParser.h b/gui/src/RimeConfigParser.h
+index b2cfa35..ff2ef3e 100644
+--- a/gui/src/RimeConfigParser.h
++++ b/gui/src/RimeConfigParser.h
+@@ -64,7 +64,7 @@ public:
+     void setInteger(const char *key, int i);
+     bool readInteger(const char *key, int *i);
+ 
+-    std::string schemaAttr(const char *schema_id, const char *attr);
++    std::string stringFromYAML(const char *yaml, const char *attr);
+     void setSchemas(const std::vector<std::string> &schemas);
+     int schemaIndex(const char *schema);
+ 

@@ -1,0 +1,124 @@
+fcitx-rime (0.3.2-8) unstable; urgency=medium
+
+  * Team upload.
+  * Force rebuild against libopencc2 1.1.1. 
+  * debian/rules: Drop useless override for dh_missing.
+
+ -- Boyuan Yang <byang@debian.org>  Sat, 04 Jul 2020 20:30:22 -0400
+
+fcitx-rime (0.3.2-7) unstable; urgency=medium
+
+  * Team upload.
+  * Cherry-pick upstream trunk code till 2020-03-08.
+  * Rebuild against libopencc2 1.0.6.
+  * debian/control:
+    + Bump debhelper compat to v13.
+    + Bump Standards-Version to 4.5.0.
+  * debian/rules:
+    - Drop unnecessary dh_auto_configure override.
+    - Drop unnecessary as-needed linker flag.
+
+ -- Boyuan Yang <byang@debian.org>  Sat, 02 May 2020 17:58:24 -0400
+
+fcitx-rime (0.3.2-6) unstable; urgency=medium
+
+  * Team upload.
+  * Rebuild for librime 1.5.3.
+  * debian/control:
+    + Bump Standards-Version to 4.4.1.
+    + Update homepage to use GitHub project.
+
+ -- Boyuan Yang <byang@debian.org>  Sat, 14 Dec 2019 23:36:54 -0500
+
+fcitx-rime (0.3.2-5) unstable; urgency=medium
+
+  * Team upload.
+  * Rebuild for Debian Buster and librime 1.4.0.
+  * debian/control:
+    + Bump Standards-Version to 4.3.0.
+    + Bump debhelper compat to v12.
+
+ -- Boyuan Yang <byang@debian.org>  Thu, 28 Feb 2019 18:15:19 -0500
+
+fcitx-rime (0.3.2-4) unstable; urgency=medium
+
+  * Team upload.
+  * Rebuild against gcc 8.
+  * debian/control:
+    + Bump Standards-Version to 4.2.1 (no changes needed).
+    + Update Vcs fields and use repo under input-method-team.
+
+ -- Boyuan Yang <byang@debian.org>  Sun, 02 Sep 2018 21:32:48 -0400
+
+fcitx-rime (0.3.2-3) unstable; urgency=medium
+
+  * Team upload.
+  * Rebuild against librime 1.3.1.
+  * Apply "wrap-and-sort -abst".
+  * debian/patches:
+    + Backport all upstream commits till 2018-05-31.
+  * debian/control:
+    + Update maintainer field and use debian-input-method mailing list.
+      Closes: #899504.
+    + Bump Standards-Version to 4.1.5 (no changes needed).
+    + Update YunQiang Su's email address and use the @debian.org one.
+    + Update homepage field to use the corresponding GitLab project.
+    + Add new build-dependency qtbase5-dev.
+  * debian/rules:
+    + Enable full hardening.
+    + Use "dh_missing --fail-missing".
+
+ -- Boyuan Yang <073plan@gmail.com>  Thu, 05 Jul 2018 10:47:27 +0800
+
+fcitx-rime (0.3.2-2) unstable; urgency=medium
+
+  * Team upload.
+  * Rebuild against librime 1.2.9.
+  * Backport upstream patch to remove unused parameter.
+  * Bump debhelper compat to v11.
+  * Bump Standards-Version to 4.1.3. (No changes needed)
+  * Use Salsa platform for Vcs URL.
+  * Mark fcitx-rime package as M-A: same.
+
+ -- Boyuan Yang <073plan@gmail.com>  Fri, 16 Mar 2018 13:48:57 +0800
+
+fcitx-rime (0.3.2-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+  * Refresh packaging instructions.
+    + Enable full hardening.
+    + Apply "wrap-and-sort -abst".
+    + Bump debhelper compat to v10.
+    + Bump Standards-Version to 4.1.0.
+    + Use canonical Vcs URL.
+    + Use GitHub as homepage.
+  * Refresh d/copyright information.
+  * Point d/watch to download.fcitx-im.org.
+
+ -- Boyuan Yang <073plan@gmail.com>  Thu, 28 Sep 2017 17:06:58 +0800
+
+fcitx-rime (0.3.1-1) unstable; urgency=medium
+
+  * New upstream release: 0.3.1.
+  * Added myself to uploaders.
+  * Build-dep on librime-dev >= 1.0 (reverted the renaming).
+  * Bumped standard version to 3.9.5, no changes needed.
+  * Build-dep on fcitx-libs-dev updated to >= 1:4.2.8.1.
+
+ -- Guo Yixuan (郭溢譞) <culu.gyx@gmail.com>  Sun, 29 Jun 2014 13:34:33 -0400
+
+fcitx-rime (0.2.1-1) unstable; urgency=low
+
+  * Imported Upstream version 0.2.1
+  * Bump git/git web URL to canonical.
+  * Fix debian/copyright: add Files: *
+  * Bump to standard version 3.9.4
+
+ -- YunQiang Su <wzssyqa@gmail.com>  Wed, 16 Oct 2013 17:59:18 +0800
+
+fcitx-rime (0.1.2-1) unstable; urgency=low
+
+  * Initial release (Closes: #683038)
+
+ -- Aron Xu <aron@debian.org>  Wed, 03 Oct 2012 14:37:50 +0800

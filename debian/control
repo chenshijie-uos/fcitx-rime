@@ -1,0 +1,44 @@
+Source: fcitx-rime
+Section: utils
+Priority: optional
+Maintainer: Debian Input Method Team <debian-input-method@lists.debian.org>
+Uploaders:
+ Aron Xu <aron@debian.org>,
+ YunQiang Su <syq@debian.org>,
+ Guo Yixuan (郭溢譞) <culu.gyx@gmail.com>,
+Build-Depends:
+ cmake,
+ debhelper-compat (= 13),
+ fcitx-bin,
+ fcitx-libs-dev (>= 1:4.2.8.1),
+ libfcitx-qt5-dev (>= 1.2.2),
+ librime-data,
+ librime-dev (>= 1.5.3+git~),
+ pkg-config,
+ qtbase5-dev,
+Rules-Requires-Root: no
+Standards-Version: 4.5.0
+Homepage: https://github.com/fcitx/fcitx-rime
+Vcs-Git: https://salsa.debian.org/input-method-team/fcitx-rime.git
+Vcs-Browser: https://salsa.debian.org/input-method-team/fcitx-rime
+
+Package: fcitx-rime
+Architecture: any
+Multi-Arch: same
+Depends:
+ fcitx-bin,
+ fcitx-data (>= 1:4.2.8.1),
+ fcitx-modules,
+ librime-data,
+ ${misc:Depends},
+ ${shlibs:Depends},
+Recommends:
+ fcitx (>= 1:4.2.8.1),
+Breaks:
+ fcitx (<< 1:4.2.0),
+Description: Fcitx wrapper for RIME engine
+ fcitx-rime is a wrapper of RIME engine for Fcitx.
+ .
+ RIME is a lightweight, extensible input method engine supporting various input
+ schematas including glyph-based input methods, romanization-based input methods
+ as well as those for Chinese dialects.

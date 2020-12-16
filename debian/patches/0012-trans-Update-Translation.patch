@@ -1,0 +1,661 @@
+From: Fcitx Transifex Bot <fcitx-dev@googlegroups.com>
+Date: Thu, 31 May 2018 00:03:58 -0700
+Subject: [trans] Update Translation
+
+Applied-Upstream: commit:a54a4505ef493db2a272005528095ad00b233343
+---
+ po/ca.po    | 21 ++++++++++-----------
+ po/da.po    | 21 ++++++++++-----------
+ po/de.po    | 21 ++++++++++-----------
+ po/ja.po    | 21 ++++++++++-----------
+ po/ko.po    | 21 ++++++++++-----------
+ po/ru.po    | 21 ++++++++++-----------
+ po/tr.po    | 21 ++++++++++-----------
+ po/zh_CN.po | 19 +++++++++----------
+ po/zh_TW.po | 19 +++++++++----------
+ 9 files changed, 88 insertions(+), 97 deletions(-)
+
+diff --git a/po/ca.po b/po/ca.po
+index a801218..02fb1d9 100644
+--- a/po/ca.po
++++ b/po/ca.po
+@@ -9,9 +9,9 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+-"POT-Creation-Date: 2018-05-30 00:03-0700\n"
+-"PO-Revision-Date: 2017-12-08 18:15+0000\n"
+-"Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
++"POT-Creation-Date: 2018-05-31 00:03-0700\n"
++"PO-Revision-Date: 2018-05-30 07:04+0000\n"
++"Last-Translator: csslayer <wengxt@gmail.com>\n"
+ "Language-Team: Catalan (http://www.transifex.com/fcitx/fcitx/language/ca/)\n"
+ "Language: ca\n"
+ "MIME-Version: 1.0\n"
+@@ -44,11 +44,11 @@ msgstr ""
+ msgid "Candidate Word Number"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
++#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
+ msgid "Deploy"
+ msgstr "Desplega"
+ 
+-#: src/fcitx-rime.c:527
++#: src/fcitx-rime.c:528
+ msgid "English"
+ msgstr "Anglès"
+ 
+@@ -56,7 +56,7 @@ msgstr "Anglès"
+ msgid "Fcitx Rime Config"
+ msgstr ""
+ 
+-#: gui/src/ConfigMain.cpp:246
++#: gui/src/ConfigMain.cpp:244
+ msgid "Fcitx Rime Config GUI Tool"
+ msgstr ""
+ 
+@@ -80,7 +80,7 @@ msgstr ""
+ msgid "Page Up"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
+ #: src/rime.conf.in:3
+ msgid "Rime"
+ msgstr "Rime"
+@@ -103,11 +103,10 @@ msgstr "Rime estar sota manteniment ..."
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:195
+ #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+-#, fuzzy
+ msgid "Schema"
+-msgstr "Llista d'esquemes"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:172
++#: src/fcitx-rime.c:173
+ msgid "Schema List"
+ msgstr "Llista d'esquemes"
+ 
+@@ -116,7 +115,7 @@ msgstr "Llista d'esquemes"
+ msgid "Shortcut"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
+ msgid "Synchronize"
+ msgstr "Sincronitza"
+ 
+diff --git a/po/da.po b/po/da.po
+index 1ed6993..fa736b9 100644
+--- a/po/da.po
++++ b/po/da.po
+@@ -8,9 +8,9 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+-"POT-Creation-Date: 2018-05-30 00:03-0700\n"
+-"PO-Revision-Date: 2017-10-18 12:17+0000\n"
+-"Last-Translator: scootergrisen\n"
++"POT-Creation-Date: 2018-05-31 00:03-0700\n"
++"PO-Revision-Date: 2018-05-30 07:04+0000\n"
++"Last-Translator: csslayer <wengxt@gmail.com>\n"
+ "Language-Team: Danish (http://www.transifex.com/fcitx/fcitx/language/da/)\n"
+ "Language: da\n"
+ "MIME-Version: 1.0\n"
+@@ -43,11 +43,11 @@ msgstr ""
+ msgid "Candidate Word Number"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
++#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
+ msgid "Deploy"
+ msgstr "Udsend"
+ 
+-#: src/fcitx-rime.c:527
++#: src/fcitx-rime.c:528
+ msgid "English"
+ msgstr "Engelsk"
+ 
+@@ -55,7 +55,7 @@ msgstr "Engelsk"
+ msgid "Fcitx Rime Config"
+ msgstr ""
+ 
+-#: gui/src/ConfigMain.cpp:246
++#: gui/src/ConfigMain.cpp:244
+ msgid "Fcitx Rime Config GUI Tool"
+ msgstr ""
+ 
+@@ -79,7 +79,7 @@ msgstr ""
+ msgid "Page Up"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
+ #: src/rime.conf.in:3
+ msgid "Rime"
+ msgstr "Rime"
+@@ -102,11 +102,10 @@ msgstr "Rime er ved at blive vedligeholdt ..."
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:195
+ #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+-#, fuzzy
+ msgid "Schema"
+-msgstr "Skemaliste"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:172
++#: src/fcitx-rime.c:173
+ msgid "Schema List"
+ msgstr "Skemaliste"
+ 
+@@ -115,7 +114,7 @@ msgstr "Skemaliste"
+ msgid "Shortcut"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
+ msgid "Synchronize"
+ msgstr "Synkroniser"
+ 
+diff --git a/po/de.po b/po/de.po
+index 106c4e1..3ff2aa5 100644
+--- a/po/de.po
++++ b/po/de.po
+@@ -9,9 +9,9 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+-"POT-Creation-Date: 2018-05-30 00:03-0700\n"
+-"PO-Revision-Date: 2017-09-23 18:54+0000\n"
+-"Last-Translator: mar well <m.wellendorf@gmx.de>\n"
++"POT-Creation-Date: 2018-05-31 00:03-0700\n"
++"PO-Revision-Date: 2018-05-30 07:04+0000\n"
++"Last-Translator: csslayer <wengxt@gmail.com>\n"
+ "Language-Team: German (http://www.transifex.com/fcitx/fcitx/language/de/)\n"
+ "Language: de\n"
+ "MIME-Version: 1.0\n"
+@@ -44,11 +44,11 @@ msgstr ""
+ msgid "Candidate Word Number"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
++#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
+ msgid "Deploy"
+ msgstr "Deploy"
+ 
+-#: src/fcitx-rime.c:527
++#: src/fcitx-rime.c:528
+ msgid "English"
+ msgstr "Englisch"
+ 
+@@ -56,7 +56,7 @@ msgstr "Englisch"
+ msgid "Fcitx Rime Config"
+ msgstr ""
+ 
+-#: gui/src/ConfigMain.cpp:246
++#: gui/src/ConfigMain.cpp:244
+ msgid "Fcitx Rime Config GUI Tool"
+ msgstr ""
+ 
+@@ -80,7 +80,7 @@ msgstr ""
+ msgid "Page Up"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
+ #: src/rime.conf.in:3
+ msgid "Rime"
+ msgstr "Rime"
+@@ -105,11 +105,10 @@ msgstr "Rime wird im Moment gewartet."
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:195
+ #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+-#, fuzzy
+ msgid "Schema"
+-msgstr "Liste Schemata"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:172
++#: src/fcitx-rime.c:173
+ msgid "Schema List"
+ msgstr "Liste Schemata"
+ 
+@@ -118,7 +117,7 @@ msgstr "Liste Schemata"
+ msgid "Shortcut"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
+ msgid "Synchronize"
+ msgstr "Synchronisieren"
+ 
+diff --git a/po/ja.po b/po/ja.po
+index f97db31..0df3862 100644
+--- a/po/ja.po
++++ b/po/ja.po
+@@ -10,9 +10,9 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+-"POT-Creation-Date: 2018-05-30 00:03-0700\n"
+-"PO-Revision-Date: 2017-11-23 06:14+0000\n"
+-"Last-Translator: ABE Tsunehiko\n"
++"POT-Creation-Date: 2018-05-31 00:03-0700\n"
++"PO-Revision-Date: 2018-05-30 07:04+0000\n"
++"Last-Translator: csslayer <wengxt@gmail.com>\n"
+ "Language-Team: Japanese (http://www.transifex.com/fcitx/fcitx/language/ja/)\n"
+ "Language: ja\n"
+ "MIME-Version: 1.0\n"
+@@ -45,11 +45,11 @@ msgstr ""
+ msgid "Candidate Word Number"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
++#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
+ msgid "Deploy"
+ msgstr "デプロイ"
+ 
+-#: src/fcitx-rime.c:527
++#: src/fcitx-rime.c:528
+ msgid "English"
+ msgstr ""
+ 
+@@ -57,7 +57,7 @@ msgstr ""
+ msgid "Fcitx Rime Config"
+ msgstr ""
+ 
+-#: gui/src/ConfigMain.cpp:246
++#: gui/src/ConfigMain.cpp:244
+ msgid "Fcitx Rime Config GUI Tool"
+ msgstr ""
+ 
+@@ -81,7 +81,7 @@ msgstr ""
+ msgid "Page Up"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
+ #: src/rime.conf.in:3
+ msgid "Rime"
+ msgstr "Rime"
+@@ -106,11 +106,10 @@ msgstr "Rimeはメンテナンス中です..."
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:195
+ #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+-#, fuzzy
+ msgid "Schema"
+-msgstr "スキーマリスト"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:172
++#: src/fcitx-rime.c:173
+ msgid "Schema List"
+ msgstr "スキーマリスト"
+ 
+@@ -119,7 +118,7 @@ msgstr "スキーマリスト"
+ msgid "Shortcut"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
+ msgid "Synchronize"
+ msgstr "同期"
+ 
+diff --git a/po/ko.po b/po/ko.po
+index 041d135..b2b3413 100644
+--- a/po/ko.po
++++ b/po/ko.po
+@@ -8,9 +8,9 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+-"POT-Creation-Date: 2018-05-30 00:03-0700\n"
+-"PO-Revision-Date: 2017-09-19 16:05+0000\n"
+-"Last-Translator: Bon Keun Seo <scobyseo@gmail.com>\n"
++"POT-Creation-Date: 2018-05-31 00:03-0700\n"
++"PO-Revision-Date: 2018-05-30 07:04+0000\n"
++"Last-Translator: csslayer <wengxt@gmail.com>\n"
+ "Language-Team: Korean (http://www.transifex.com/fcitx/fcitx/language/ko/)\n"
+ "Language: ko\n"
+ "MIME-Version: 1.0\n"
+@@ -43,11 +43,11 @@ msgstr ""
+ msgid "Candidate Word Number"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
++#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
+ msgid "Deploy"
+ msgstr "배치"
+ 
+-#: src/fcitx-rime.c:527
++#: src/fcitx-rime.c:528
+ msgid "English"
+ msgstr "영어"
+ 
+@@ -55,7 +55,7 @@ msgstr "영어"
+ msgid "Fcitx Rime Config"
+ msgstr ""
+ 
+-#: gui/src/ConfigMain.cpp:246
++#: gui/src/ConfigMain.cpp:244
+ msgid "Fcitx Rime Config GUI Tool"
+ msgstr ""
+ 
+@@ -79,7 +79,7 @@ msgstr ""
+ msgid "Page Up"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
+ #: src/rime.conf.in:3
+ msgid "Rime"
+ msgstr "Rime"
+@@ -103,11 +103,10 @@ msgstr "Rime은 관리 중입니다..."
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:195
+ #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+-#, fuzzy
+ msgid "Schema"
+-msgstr "스키마 목록"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:172
++#: src/fcitx-rime.c:173
+ msgid "Schema List"
+ msgstr "스키마 목록"
+ 
+@@ -116,7 +115,7 @@ msgstr "스키마 목록"
+ msgid "Shortcut"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
+ msgid "Synchronize"
+ msgstr "동기화"
+ 
+diff --git a/po/ru.po b/po/ru.po
+index f754f43..2894ffe 100644
+--- a/po/ru.po
++++ b/po/ru.po
+@@ -8,9 +8,9 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+-"POT-Creation-Date: 2018-05-30 00:03-0700\n"
+-"PO-Revision-Date: 2017-09-19 16:05+0000\n"
+-"Last-Translator: TotalCaesar659 <x24cm5b8c54q6szxw@yandex.ru>\n"
++"POT-Creation-Date: 2018-05-31 00:03-0700\n"
++"PO-Revision-Date: 2018-05-30 07:04+0000\n"
++"Last-Translator: csslayer <wengxt@gmail.com>\n"
+ "Language-Team: Russian (http://www.transifex.com/fcitx/fcitx/language/ru/)\n"
+ "Language: ru\n"
+ "MIME-Version: 1.0\n"
+@@ -45,11 +45,11 @@ msgstr ""
+ msgid "Candidate Word Number"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
++#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
+ msgid "Deploy"
+ msgstr "Развернуть"
+ 
+-#: src/fcitx-rime.c:527
++#: src/fcitx-rime.c:528
+ msgid "English"
+ msgstr "Английский"
+ 
+@@ -57,7 +57,7 @@ msgstr "Английский"
+ msgid "Fcitx Rime Config"
+ msgstr ""
+ 
+-#: gui/src/ConfigMain.cpp:246
++#: gui/src/ConfigMain.cpp:244
+ msgid "Fcitx Rime Config GUI Tool"
+ msgstr ""
+ 
+@@ -81,7 +81,7 @@ msgstr ""
+ msgid "Page Up"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
+ #: src/rime.conf.in:3
+ msgid "Rime"
+ msgstr "Rime"
+@@ -104,11 +104,10 @@ msgstr "Rime перегружен..."
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:195
+ #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+-#, fuzzy
+ msgid "Schema"
+-msgstr "Список схем"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:172
++#: src/fcitx-rime.c:173
+ msgid "Schema List"
+ msgstr "Список схем"
+ 
+@@ -117,7 +116,7 @@ msgstr "Список схем"
+ msgid "Shortcut"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
+ msgid "Synchronize"
+ msgstr "Синхронизировать"
+ 
+diff --git a/po/tr.po b/po/tr.po
+index 645c878..ce99928 100644
+--- a/po/tr.po
++++ b/po/tr.po
+@@ -8,9 +8,9 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+-"POT-Creation-Date: 2018-05-30 00:03-0700\n"
+-"PO-Revision-Date: 2017-09-23 23:45+0000\n"
+-"Last-Translator: Gökhan Kalayci <gkmediagokhan@gmail.com>\n"
++"POT-Creation-Date: 2018-05-31 00:03-0700\n"
++"PO-Revision-Date: 2018-05-30 07:04+0000\n"
++"Last-Translator: csslayer <wengxt@gmail.com>\n"
+ "Language-Team: Turkish (http://www.transifex.com/fcitx/fcitx/language/tr/)\n"
+ "Language: tr\n"
+ "MIME-Version: 1.0\n"
+@@ -43,11 +43,11 @@ msgstr ""
+ msgid "Candidate Word Number"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
++#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
+ msgid "Deploy"
+ msgstr "Dağıt"
+ 
+-#: src/fcitx-rime.c:527
++#: src/fcitx-rime.c:528
+ msgid "English"
+ msgstr "İngilizce"
+ 
+@@ -55,7 +55,7 @@ msgstr "İngilizce"
+ msgid "Fcitx Rime Config"
+ msgstr ""
+ 
+-#: gui/src/ConfigMain.cpp:246
++#: gui/src/ConfigMain.cpp:244
+ msgid "Fcitx Rime Config GUI Tool"
+ msgstr ""
+ 
+@@ -79,7 +79,7 @@ msgstr ""
+ msgid "Page Up"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
+ #: src/rime.conf.in:3
+ msgid "Rime"
+ msgstr "Rime"
+@@ -104,11 +104,10 @@ msgstr "Rime bakımda..."
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:195
+ #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+-#, fuzzy
+ msgid "Schema"
+-msgstr "Şema Listesi"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:172
++#: src/fcitx-rime.c:173
+ msgid "Schema List"
+ msgstr "Şema Listesi"
+ 
+@@ -117,7 +116,7 @@ msgstr "Şema Listesi"
+ msgid "Shortcut"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
+ msgid "Synchronize"
+ msgstr "Eşitleme"
+ 
+diff --git a/po/zh_CN.po b/po/zh_CN.po
+index 135e28c..7e5ff44 100644
+--- a/po/zh_CN.po
++++ b/po/zh_CN.po
+@@ -10,8 +10,8 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+-"POT-Creation-Date: 2018-05-30 00:03-0700\n"
+-"PO-Revision-Date: 2017-09-19 16:05+0000\n"
++"POT-Creation-Date: 2018-05-31 00:03-0700\n"
++"PO-Revision-Date: 2018-05-30 07:04+0000\n"
+ "Last-Translator: csslayer <wengxt@gmail.com>\n"
+ "Language-Team: Chinese (China) (http://www.transifex.com/fcitx/fcitx/"
+ "language/zh_CN/)\n"
+@@ -46,11 +46,11 @@ msgstr ""
+ msgid "Candidate Word Number"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
++#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
+ msgid "Deploy"
+ msgstr "重新部署"
+ 
+-#: src/fcitx-rime.c:527
++#: src/fcitx-rime.c:528
+ msgid "English"
+ msgstr "英文"
+ 
+@@ -58,7 +58,7 @@ msgstr "英文"
+ msgid "Fcitx Rime Config"
+ msgstr ""
+ 
+-#: gui/src/ConfigMain.cpp:246
++#: gui/src/ConfigMain.cpp:244
+ msgid "Fcitx Rime Config GUI Tool"
+ msgstr ""
+ 
+@@ -82,7 +82,7 @@ msgstr ""
+ msgid "Page Up"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
+ #: src/rime.conf.in:3
+ msgid "Rime"
+ msgstr "中州韻"
+@@ -105,11 +105,10 @@ msgstr "Rime 正在维护中..."
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:195
+ #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+-#, fuzzy
+ msgid "Schema"
+-msgstr "方案列表"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:172
++#: src/fcitx-rime.c:173
+ msgid "Schema List"
+ msgstr "方案列表"
+ 
+@@ -118,7 +117,7 @@ msgstr "方案列表"
+ msgid "Shortcut"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
+ msgid "Synchronize"
+ msgstr "同步"
+ 
+diff --git a/po/zh_TW.po b/po/zh_TW.po
+index d6b873b..119a409 100644
+--- a/po/zh_TW.po
++++ b/po/zh_TW.po
+@@ -9,8 +9,8 @@ msgid ""
+ msgstr ""
+ "Project-Id-Version: fcitx\n"
+ "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+-"POT-Creation-Date: 2018-05-30 00:03-0700\n"
+-"PO-Revision-Date: 2017-09-19 16:05+0000\n"
++"POT-Creation-Date: 2018-05-31 00:03-0700\n"
++"PO-Revision-Date: 2018-05-30 07:04+0000\n"
+ "Last-Translator: csslayer <wengxt@gmail.com>\n"
+ "Language-Team: Chinese (Taiwan) (http://www.transifex.com/fcitx/fcitx/"
+ "language/zh_TW/)\n"
+@@ -45,11 +45,11 @@ msgstr ""
+ msgid "Candidate Word Number"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
++#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
+ msgid "Deploy"
+ msgstr "重新部署"
+ 
+-#: src/fcitx-rime.c:527
++#: src/fcitx-rime.c:528
+ msgid "English"
+ msgstr "英語"
+ 
+@@ -57,7 +57,7 @@ msgstr "英語"
+ msgid "Fcitx Rime Config"
+ msgstr ""
+ 
+-#: gui/src/ConfigMain.cpp:246
++#: gui/src/ConfigMain.cpp:244
+ msgid "Fcitx Rime Config GUI Tool"
+ msgstr ""
+ 
+@@ -81,7 +81,7 @@ msgstr ""
+ msgid "Page Up"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
++#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
+ #: src/rime.conf.in:3
+ msgid "Rime"
+ msgstr "中州韻"
+@@ -104,11 +104,10 @@ msgstr "Rime 仍在維護中..."
+ 
+ #. i18n: file: gui/src/ConfigMain.ui:195
+ #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+-#, fuzzy
+ msgid "Schema"
+-msgstr "方案選單"
++msgstr ""
+ 
+-#: src/fcitx-rime.c:172
++#: src/fcitx-rime.c:173
+ msgid "Schema List"
+ msgstr "方案選單"
+ 
+@@ -117,7 +116,7 @@ msgstr "方案選單"
+ msgid "Shortcut"
+ msgstr ""
+ 
+-#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
++#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
+ msgid "Synchronize"
+ msgstr "同步"
+ 
