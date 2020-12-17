@@ -13,7 +13,7 @@ Build-Depends:
  fcitx-libs-dev (>= 1:4.2.8.1),
  libfcitx-qt5-dev (>= 1.2.2),
  librime-data,
- librime-dev (>= 1.5.3+git~),
+ librime-dev (>= 1.2.10~),
  pkg-config,
  qtbase5-dev,
 Rules-Requires-Root: no
